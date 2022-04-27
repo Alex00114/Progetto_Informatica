@@ -13,7 +13,9 @@ import matplotlib.pyplot as plt
 def home():
     return render_template('home.html')
 
-
+@app.route('/registrazione', methods=['GET'])
+def registrazione():
+    return render_template('registrazione.html')
 
 
 
