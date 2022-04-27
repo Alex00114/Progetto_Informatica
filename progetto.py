@@ -8,6 +8,10 @@ from matplotlib.figure import Figure
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
+import random
+
+regioni = geopandas.read_file("/workspace/Progetto_Informatica/Reg01012021_g_WGS84.zip")
+
 
 @app.route('/', methods=['GET'])
 def home():
@@ -17,7 +21,17 @@ def home():
 def registrazione():
     return render_template('registrazione.html')
 
-
+@app.route('/quiz', methods=['GET'])
+def quiz():
+    global nick, sesso
+    nick = request.args["Name"]
+    sesso = request.args["Sex"]
+    i = random.randint(0, 19)
+    regioni_name = list(regioni["DEN_REG"])
+    regione = regioni_name[i]
+    mappa_regione = regioni[regioni["DEN_REG"] == regione]
+    return render_template("quiz.html", text = regione)
+    
 
 
 
