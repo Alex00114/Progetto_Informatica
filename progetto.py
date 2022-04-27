@@ -11,6 +11,7 @@ import matplotlib.pyplot as plt
 import random
 
 regioni = geopandas.read_file("/workspace/Progetto_Informatica/Reg01012021_g_WGS84.zip")
+regioni_name = list(regioni["DEN_REG"])
 
 
 @app.route('/', methods=['GET'])
@@ -21,22 +22,27 @@ def home():
 def registrazione():
     return render_template('registrazione.html')
 
-@app.route('/quiz', methods=['GET'])
-def quiz():
-    global nick, sesso, mappa_regione
+@app.route('/difficolta', methods=['GET'])
+def difficolta():
+    global nick, sesso
+
     nick = request.args["Name"]
     sesso = request.args["Sex"]
-    regioni_name = list(regioni["DEN_REG"])
-    i = random.randint(0, 19)
-    j = random.randint(0, 19)
-    if j == i:
-        j = random.randint(0, 19)
-    k = random.randint(0, 19)
-    if k == j or k == i:
-        k = random.randint(0, 19)
-    l = random.randint(0, 19)
-    if l == j or l == i or l == k:
-        l = random.randint(0, 19)
+    return render_template('difficolta.html')
+
+@app.route('/quiz_facile', methods=['GET'])
+def quiz_facile():
+    global mappa_regione, risposta
+
+    if volte >=1:
+        risposta = request.args["Scelta"]
+
+    unico = random.sample(range(0, 19), 4)
+    i = unico[0]
+    j = unico[1]
+    k = unico[2]
+    l = unico[3]
+
     opzioni = random.randint(0, 3)
     if opzioni == 0:
         opz1 = regioni_name[i]
@@ -62,7 +68,14 @@ def quiz():
         opz3 = regioni_name[j]
         opz4 = regioni_name[i]
         mappa_regione = regioni[regioni["DEN_REG"] == opz4]
-    return render_template("quiz.html", opzione1 = opz1, opzione2 = opz2, opzione3 = opz3, opzione4 = opz4)
+
+    punteggio = 0
+    if volte >=1:
+        if risposta == mappa_regione["DEN_REG"]:
+            punteggio = punteggio + 1
+
+    volte = volte + 1
+    return render_template("quiz_facile.html", opzione1 = opz1, opzione2 = opz2, opzione3 = opz3, opzione4 = opz4, score = punteggio, name = nick)
     
 @app.route('/regione_png', methods=['GET'])
 def regione_png():
@@ -74,9 +87,7 @@ def regione_png():
     FigureCanvas(fig).print_png(output)
     return Response(output.getvalue(), mimetype='image/png')
 
-@app.route('/quiz2', methods=['GET'])
-def quiz2():
-    return render_template('quiz2.html')
+
 
 
 if __name__ == '__main__':
