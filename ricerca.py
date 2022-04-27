@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, send_file, make_response, url_for, Response,branca, jinja2, requests.
+from flask import Flask, render_template, request, send_file, make_response, url_for, Response
 app = Flask(__name__)
 import io
 import geopandas
@@ -8,17 +8,18 @@ from matplotlib.figure import Figure
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
+import folium
 
-regioni = geopandas.read_file("/workspace/Flask/Reg01012021_g_WGS84.zip")
-province = geopandas.read_file("/workspace/Flask/ProvCM01012021_g_WGS84.zip")
-comuni = geopandas.read_file("/workspace/Flask/Com01012021_g_WGS84.zip")
-
-@app.route('/', methods=['GET'])
+@app.route('/a', methods=['GET'])
 def homeR():
     return render_template('homeR.html')
 
-@app.route('/ricerca', methods=['GET'])
+@app.route('/', methods=['GET'])
 def ricerca():
+    f = folium.Figure(width=1000, height=500)
+    m = folium.Map(location=[41.2925, 12.5736], tiles="openstreetmap",zoom_start=6, min_zoom = 5).add_to(f)
+    return m._repr_html_()
+
     
 
 
