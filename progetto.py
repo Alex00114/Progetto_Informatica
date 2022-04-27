@@ -29,46 +29,54 @@ def quiz():
     regioni_name = list(regioni["DEN_REG"])
     i = random.randint(0, 19)
     j = random.randint(0, 19)
+    if j == i:
+        j = random.randint(0, 19)
     k = random.randint(0, 19)
+    if k == j or k == i:
+        k = random.randint(0, 19)
     l = random.randint(0, 19)
+    if l == j or l == i or l == k:
+        l = random.randint(0, 19)
     opzioni = random.randint(0, 3)
-    if opzioni == 1:
-        regione = regioni_name[i]
+    if opzioni == 0:
+        opz1 = regioni_name[i]
         opz2 = regioni_name[j]
         opz3 = regioni_name[k]
         opz4 = regioni_name[l]
-        mappa_regione = regioni[regioni["DEN_REG"] == regione]
-    elif opzioni == 2:
-        regione = regioni_name[j]
+        mappa_regione = regioni[regioni["DEN_REG"] == opz1]
+    elif opzioni == 1:
+        opz1 = regioni_name[j]
         opz2 = regioni_name[i]
         opz3 = regioni_name[l]
         opz4 = regioni_name[k]
-        mappa_regione = regioni[regioni["DEN_REG"] == regione]
-    elif opzioni == 3:
-        regione = regioni_name[k]
+        mappa_regione = regioni[regioni["DEN_REG"] == opz2]
+    elif opzioni == 2:
+        opz1 = regioni_name[k]
         opz2 = regioni_name[j]
         opz3 = regioni_name[i]
         opz4 = regioni_name[l]
-        mappa_regione = regioni[regioni["DEN_REG"] == regione]
+        mappa_regione = regioni[regioni["DEN_REG"] == opz3]
     else:
-        regione = regioni_name[l]
+        opz1 = regioni_name[l]
         opz2 = regioni_name[k]
         opz3 = regioni_name[j]
         opz4 = regioni_name[i]
-        mappa_regione = regioni[regioni["DEN_REG"] == regione]
-    return render_template("quiz.html", opzione1 = regione, opzione2 = opz2, opzione3 = opz3, opzione4 = opz4)
+        mappa_regione = regioni[regioni["DEN_REG"] == opz4]
+    return render_template("quiz.html", opzione1 = opz1, opzione2 = opz2, opzione3 = opz3, opzione4 = opz4)
     
 @app.route('/regione_png', methods=['GET'])
 def regione_png():
     fig, ax = plt.subplots(figsize = (12,8))
 
-    mappa_regione.to_crs(epsg=3857).plot(ax=ax, edge_color = "k")
+    mappa_regione.to_crs(epsg=3857).plot(ax=ax, color="c", edgecolor = "k")
     contextily.add_basemap(ax=ax)
     output = io.BytesIO()
     FigureCanvas(fig).print_png(output)
     return Response(output.getvalue(), mimetype='image/png')
 
-
+@app.route('/quiz2', methods=['GET'])
+def quiz2():
+    return render_template('quiz2.html')
 
 
 if __name__ == '__main__':
