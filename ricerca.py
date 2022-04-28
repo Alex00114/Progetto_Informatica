@@ -9,15 +9,14 @@ import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import folium
-
-@app.route('/a', methods=['GET'])
-def homeR():
-    return render_template('homeR.html')
+import pandas as pd 
+regioni = pd.read_csv('/workspace/Progetto_Informatica/static/csv/regioni - Foglio1.csv')
 
 @app.route('/', methods=['GET'])
 def ricerca():
     f = folium.Figure(width=1000, height=500)
     m = folium.Map(location=[41.2925, 12.5736], tiles="openstreetmap",zoom_start=6, min_zoom = 5).add_to(f)
+    for i in range(0,len(data)):
     return m._repr_html_()
 
     
