@@ -12,6 +12,8 @@ import random
 
 regioni = geopandas.read_file("/workspace/Progetto_Informatica/Reg01012021_g_WGS84.zip")
 regioni_name = list(regioni["DEN_REG"])
+volte = 0
+punteggio = 0
 
 
 @app.route('/', methods=['GET'])
@@ -32,10 +34,17 @@ def difficolta():
 
 @app.route('/quiz_facile', methods=['GET'])
 def quiz_facile():
-    global mappa_regione, risposta
+    global mappa_regione, risposta, volte, punteggio, corretta
+    
+    if volte >=0:
+        volte = volte + 1
 
-    if volte >=1:
+    if volte >=2:
         risposta = request.args["Scelta"]
+        print(str(risposta))
+        print(corretta)
+        if risposta in corretta:
+            punteggio = punteggio + 1
 
     unico = random.sample(range(0, 19), 4)
     i = unico[0]
@@ -50,31 +59,29 @@ def quiz_facile():
         opz3 = regioni_name[k]
         opz4 = regioni_name[l]
         mappa_regione = regioni[regioni["DEN_REG"] == opz1]
+        corretta = opz1
     elif opzioni == 1:
         opz1 = regioni_name[j]
         opz2 = regioni_name[i]
         opz3 = regioni_name[l]
         opz4 = regioni_name[k]
         mappa_regione = regioni[regioni["DEN_REG"] == opz2]
+        corretta = opz2
     elif opzioni == 2:
         opz1 = regioni_name[k]
         opz2 = regioni_name[j]
         opz3 = regioni_name[i]
         opz4 = regioni_name[l]
         mappa_regione = regioni[regioni["DEN_REG"] == opz3]
+        corretta = opz3
     else:
         opz1 = regioni_name[l]
         opz2 = regioni_name[k]
         opz3 = regioni_name[j]
         opz4 = regioni_name[i]
         mappa_regione = regioni[regioni["DEN_REG"] == opz4]
+        corretta = opz4
 
-    punteggio = 0
-    if volte >=1:
-        if risposta == mappa_regione["DEN_REG"]:
-            punteggio = punteggio + 1
-
-    volte = volte + 1
     return render_template("quiz_facile.html", opzione1 = opz1, opzione2 = opz2, opzione3 = opz3, opzione4 = opz4, score = punteggio, name = nick)
     
 @app.route('/regione_png', methods=['GET'])
