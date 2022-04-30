@@ -13,7 +13,7 @@ import random
 regioni = geopandas.read_file("/workspace/Progetto_Informatica/Reg01012021_g_WGS84.zip")
 province = geopandas.read_file("/workspace/Progetto_Informatica/ProvCM01012021_g_WGS84.zip")
 regioni_name = list(regioni["DEN_REG"])
-province_name
+
 volte = 0
 punteggio = 0
 
@@ -46,7 +46,7 @@ def quiz_facile():
         if risposta in corretta:
             punteggio = punteggio + 1
 
-    unico = random.sample(range(0, 19), 4)
+    unico = random.sample(range(0, 20), 4)
     i = unico[0]
     j = unico[1]
     k = unico[2]
