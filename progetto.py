@@ -11,7 +11,9 @@ import matplotlib.pyplot as plt
 import random
 
 regioni = geopandas.read_file("/workspace/Progetto_Informatica/Reg01012021_g_WGS84.zip")
+province = geopandas.read_file("/workspace/Progetto_Informatica/ProvCM01012021_g_WGS84.zip")
 regioni_name = list(regioni["DEN_REG"])
+province_name
 volte = 0
 punteggio = 0
 
