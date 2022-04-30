@@ -14,9 +14,9 @@ regioni = pd.read_csv('/workspace/Progetto_Informatica/static/csv/regioni - Fogl
 
 @app.route('/', methods=['GET'])
 def ricerca():
-    f = folium.Figure(width=1000, height=500)
+    f = folium.Figure(width=2000, height=1000)
     m = folium.Map(location=[41.2925, 12.5736], tiles="openstreetmap",zoom_start=6, min_zoom = 5).add_to(f)
-    for i in range(0,len(data)):
+    
     return m._repr_html_()
 
     
