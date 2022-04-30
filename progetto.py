@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, send_file, make_response, url_for, Response
+from flask import Flask, render_template, request, send_file, make_response, url_for, Response, redirect
 app = Flask(__name__)
 import io
 import geopandas
@@ -41,8 +41,6 @@ def quiz_facile():
 
     if volte >=2:
         risposta = request.args["Scelta"]
-        print(str(risposta))
-        print(corretta)
         if risposta in corretta:
             punteggio = punteggio + 1
 
@@ -82,6 +80,9 @@ def quiz_facile():
         mappa_regione = regioni[regioni["DEN_REG"] == opz4]
         corretta = opz4
 
+    if volte >=11:
+        return redirect(url_for("risultato_facile"))
+
     return render_template("quiz_facile.html", opzione1 = opz1, opzione2 = opz2, opzione3 = opz3, opzione4 = opz4, score = punteggio, name = nick)
     
 @app.route('/regione_png', methods=['GET'])
@@ -94,7 +95,9 @@ def regione_png():
     FigureCanvas(fig).print_png(output)
     return Response(output.getvalue(), mimetype='image/png')
 
-
+@app.route('/risultato_facile', methods=['GET'])
+def risultato_facile():
+    return render_template('risultato_facile.html')
 
 
 if __name__ == '__main__':
