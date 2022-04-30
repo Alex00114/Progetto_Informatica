@@ -34,7 +34,7 @@ def difficolta():
 
 @app.route('/quiz_facile', methods=['GET'])
 def quiz_facile():
-    global mappa_regione, risposta, volte, punteggio, corretta
+    global mappa_quiz, risposta, volte, punteggio, corretta
     
     if volte >=0:
         volte = volte + 1
@@ -56,28 +56,28 @@ def quiz_facile():
         opz2 = regioni_name[j]
         opz3 = regioni_name[k]
         opz4 = regioni_name[l]
-        mappa_regione = regioni[regioni["DEN_REG"] == opz1]
+        mappa_quiz = regioni[regioni["DEN_REG"] == opz1]
         corretta = opz1
     elif opzioni == 1:
         opz1 = regioni_name[j]
         opz2 = regioni_name[i]
         opz3 = regioni_name[l]
         opz4 = regioni_name[k]
-        mappa_regione = regioni[regioni["DEN_REG"] == opz2]
+        mappa_quiz = regioni[regioni["DEN_REG"] == opz2]
         corretta = opz2
     elif opzioni == 2:
         opz1 = regioni_name[k]
         opz2 = regioni_name[j]
         opz3 = regioni_name[i]
         opz4 = regioni_name[l]
-        mappa_regione = regioni[regioni["DEN_REG"] == opz3]
+        mappa_quiz = regioni[regioni["DEN_REG"] == opz3]
         corretta = opz3
     else:
         opz1 = regioni_name[l]
         opz2 = regioni_name[k]
         opz3 = regioni_name[j]
         opz4 = regioni_name[i]
-        mappa_regione = regioni[regioni["DEN_REG"] == opz4]
+        mappa_quiz = regioni[regioni["DEN_REG"] == opz4]
         corretta = opz4
 
     if volte >=11:
@@ -89,7 +89,7 @@ def quiz_facile():
 def regione_png():
     fig, ax = plt.subplots(figsize = (12,8))
 
-    mappa_regione.to_crs(epsg=3857).plot(ax=ax, color="c", edgecolor = "k")
+    mappa_quiz.to_crs(epsg=3857).plot(ax=ax, color="c", edgecolor = "k")
     contextily.add_basemap(ax=ax)
     output = io.BytesIO()
     FigureCanvas(fig).print_png(output)
