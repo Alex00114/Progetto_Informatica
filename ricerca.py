@@ -21,7 +21,8 @@ def homeR():
 @app.route('/RisS', methods=['GET'])
 def Risposta():
   Search = request.args['search']
-#mi snon i cazzo di data frame sulle regioni e province da mergare 
+#dove sonon i cazzo di data frame sulle regioni e province da mergare 
+#ne ho trovato uno solo con i nomi porco dio
 
 @app.route('/Regione', methods=['GET'])
 def ricerca():
