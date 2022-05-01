@@ -52,6 +52,7 @@ def quiz_facile():
             punteggio = punteggio + 1
 
     if regioni_province == 0:
+        testo = "Indovina la Regione!"
         unico = random.sample(range(0, 20), 4)
         i = unico[0]
         j = unico[1]
@@ -123,11 +124,12 @@ def quiz_facile():
             opz4 = province_name[i]
             mappa_quiz = province[province["prov_name"] == opz4]
             corretta = opz4
-
+        testo = "Indovina la Provincia appartenente alla Regione " + ""
+        
     if volte >=11:
         return redirect(url_for("risultato_facile"))
 
-    return render_template("quiz_facile.html", opzione1 = opz1, opzione2 = opz2, opzione3 = opz3, opzione4 = opz4, score = punteggio, name = nick)
+    return render_template("quiz_facile.html", opzione1 = opz1, opzione2 = opz2, opzione3 = opz3, opzione4 = opz4, score = punteggio, name = nick, text = testo)
     
 @app.route('/regione_png', methods=['GET'])
 def regione_png():

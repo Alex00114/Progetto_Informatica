@@ -12,3 +12,8 @@
     padding: 50px;
 
 }
+#sottotitolo {
+    position: absolute;
+    top: 1%;
+    left: 50%;
+}
