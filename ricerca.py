@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, send_file, make_response, url_for, Response
+from flask import Flask, render_template, request, send_file, make_response, url_for, Response, redirect
 app = Flask(__name__)
 import io
 import geopandas
@@ -20,8 +20,14 @@ province_name = list(ProvinceGeo["prov_name"])
 
 @app.route('/', methods=['GET'])
 def ricerca():
-    m = folium.Map(location=[41.2925, 12.5736], tiles="openstreetmap",zoom_start=6, min_zoom = 5)
-    return render_template('homeR.html'), m._repr_html_()
+  m = folium.Map(location=[41.2925, 12.5736], tiles="openstreetmap",zoom_start=6, min_zoom = 5)
+  m.save('templates/map.html')
+  return render_template('homeR.html')
+
+@app.route('/map', methods=['GET'])
+def png():
+    
+    return render_template("map.html")
 
     
 

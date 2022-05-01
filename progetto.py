@@ -127,9 +127,9 @@ def quiz_facile():
             mappa_quiz = province[province["prov_name"] == opz4]
             corretta = opz4
         reg_provincia = regioni[regioni.contains(mappa_quiz.geometry.squeeze())]
-        reg_provincia = 
+        reg_provincia = str(reg_provincia["DEN_REG"])
         print(reg_provincia)
-        testo = "Indovina la Provincia appartenente alla Regione " + ""
+        testo = "Indovina la Provincia appartenente alla Regione " + reg_provincia
 
     if volte >=11:
         return redirect(url_for("risultato_facile"))
