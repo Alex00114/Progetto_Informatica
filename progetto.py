@@ -16,7 +16,7 @@ regioni_name = list(regioni["DEN_REG"])
 
 province = geopandas.read_file("/workspace/Progetto_Informatica/templates/georef-italy-provincia-millesime.geojson")
 province = province.to_crs(epsg=3857)
-province.drop_duplicates(subset=["prov_name"])
+province = province.drop_duplicates(subset=["prov_name"])
 province_name = list(province["prov_name"])
 valore_max = len(province_name)
 
