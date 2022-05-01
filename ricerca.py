@@ -18,6 +18,7 @@ regioni = pd.read_csv('/workspace/Progetto_Informatica/static/csv/regioni - Fogl
 def homeR():
   return render_template('homeR.html')
 
+#nella merda di html devo capire come fare la barra di ricerca porca madonna
 @app.route('/RisS', methods=['GET'])
 def Risposta():
   Search = request.args['search']
