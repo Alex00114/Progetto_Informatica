@@ -12,32 +12,18 @@ import folium
 import pandas as pd 
 
 regioni = pd.read_csv('/workspace/Progetto_Informatica/static/csv/regioni - Foglio1.csv')
+ProvinceGeo = geopandas.read_file('/workspace/Progetto_Informatica/templates/georef-italy-provincia-millesime.geojson')
+ProvinceGeo.drop_duplicates(subset=["prov_name"])
+province_name = list(ProvinceGeo["prov_name"])
+
 
 
 @app.route('/', methods=['GET'])
-def homeR():
-  return render_template('homeR.html')
-
-#nella merda di html devo capire come fare la barra di ricerca porca madonna
-@app.route('/RisS', methods=['GET'])
-def Risposta():
-  Search = request.args['search']
-#dove sonon i cazzo di data frame sulle regioni e province da mergare 
-#ne ho trovato uno solo con i nomi porco dio
-
-@app.route('/Regione', methods=['GET'])
 def ricerca():
     m = folium.Map(location=[41.2925, 12.5736], tiles="openstreetmap",zoom_start=6, min_zoom = 5)
-    #devo creare un data frame con le posizioni di ogni regione
-    return m._repr_html_()
+    return render_template('homeR.html'), m._repr_html_()
 
     
-
-
-
-
-
-
 
 
 
