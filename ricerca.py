@@ -21,12 +21,12 @@ def homeR():
 @app.route('/RisS', methods=['GET'])
 def Risposta():
   Search = request.args['search']
-
+#mi snon i cazzo di data frame sulle regioni e province da mergare 
 
 @app.route('/Regione', methods=['GET'])
 def ricerca():
     m = folium.Map(location=[41.2925, 12.5736], tiles="openstreetmap",zoom_start=6, min_zoom = 5)
-    
+    #devo creare un data frame con le posizioni di ogni regione
     return m._repr_html_()
 
     
