@@ -14,10 +14,10 @@ regioni = geopandas.read_file("/workspace/Progetto_Informatica/Reg01012021_g_WGS
 regioni = regioni.to_crs(epsg=3857)
 regioni_name = list(regioni["DEN_REG"])
 
-province = geopandas.read_file("/workspace/Progetto_Informatica/templates/georef-italy-provincia-millesime.geojson")
+province = geopandas.read_file("/workspace/Progetto_Informatica/ProvCM01012021_g_WGS84.zip")
 province = province.to_crs(epsg=3857)
-province = province.drop_duplicates(subset=["prov_name"])
-province_name = list(province["prov_name"])
+
+province_name = list(province["DEN_PROV"])
 valore_max = len(province_name)
 
 volte = 0
@@ -42,7 +42,7 @@ def difficolta():
 
 @app.route('/quiz_facile', methods=['GET'])
 def quiz_facile():
-    global mappa_quiz, risposta, volte, punteggio, corretta, valore_max
+    global mappa_quiz, risposta, volte, punteggio, corretta, valore_max, regioni
     regioni_province = random.randint(0,1)
 
     if volte >=0:
@@ -103,34 +103,33 @@ def quiz_facile():
             opz2 = province_name[j]
             opz3 = province_name[k]
             opz4 = province_name[l]
-            mappa_quiz = province[province["prov_name"] == opz1]
+            mappa_quiz = province[province["DEN_PROV"] == opz1]
             corretta = opz1
         elif opzioni == 1:
             opz1 = province_name[j]
             opz2 = province_name[i]
             opz3 = province_name[l]
             opz4 = province_name[k]
-            mappa_quiz = province[province["prov_name"] == opz2]
+            mappa_quiz = province[province["DEN_PROV"] == opz2]
             corretta = opz2
         elif opzioni == 2:
             opz1 = province_name[k]
             opz2 = province_name[j]
             opz3 = province_name[i]
             opz4 = province_name[l]
-            mappa_quiz = province[province["prov_name"] == opz3]
+            mappa_quiz = province[province["DEN_PROV"] == opz3]
             corretta = opz3
         else:
             opz1 = province_name[l]
             opz2 = province_name[k]
             opz3 = province_name[j]
             opz4 = province_name[i]
-            mappa_quiz = province[province["prov_name"] == opz4]
+            mappa_quiz = province[province["DEN_PROV"] == opz4]
             corretta = opz4
+        
         reg_provincia = regioni[regioni.contains(mappa_quiz.geometry.squeeze())]
-        reg_provincia = str(reg_provincia["DEN_REG"])
-        print(reg_provincia)
-        testo = "Indovina la Provincia appartenente alla Regione " + reg_provincia
-
+        reg_provincia2 = regioni_name[regioni_name == str(reg_provincia["DEN_REG"])]
+        testo =  reg_provincia2
     if volte >=11:
         return redirect(url_for("risultato_facile"))
 
