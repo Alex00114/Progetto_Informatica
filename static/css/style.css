@@ -17,6 +17,16 @@
     top: 1%;
     left: 50%;
 }
-body {
-    background-color: rgb(107, 13, 13)
+#home {
+    background-color: rgb(103, 45, 156);
+}
+#cobra {
+    position: absolute;
+    top: 2%;
+    right: 50%;
+}
+#accedi_png {
+    position: absolute;
+    top: 1%;
+    right: 2%;
 }
