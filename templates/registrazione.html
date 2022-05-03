@@ -1,13 +1,12 @@
-<form action="/register" method = "POST">
+<form action="/registrazione" method = "POST">
     <h3>Nickname</h3> <br>
     <input type = "text" name = "Nick" required/>
     <h3>Email</h3> <br>
-    <input type = "email" name = "Email" pattern = ".+@gmail\.com" size = "30" required/>
-    <h3>Password</h3>
-    <p>Email<input type="email" name="email" pattern=".+@gmail\.com" placeholder="email" size="30" required></p>
-    <p>Password <input type = "password" name = "pwd" required/></p>
-    <p>Confirm Password <input type = "password" name = "cpwd" required/></p>
-    <p>Via<input type = "text" name = "via" placeholder="INSERIRE VIA" required/>n^<input type = "text" name = "civico"  placeholder="civico" size ="4"required/></p>
-    <p><input type = "submit" value = "Submit"/></p>
-    <p><a href="/login">Hai già effettuato l'accesso?Effettua il Login!</a></p>
+    <input type = "email" name = "Email" pattern = ".+@gmail\.com" title = "@gmail.com" size = "30" required/>
+    <h3>Password</h3> <br>
+    <input type = "password" name = "Password" required/>
+    <h3>Confirm Password</h3> <br>
+    <input type = "password" name = "Cpassword" required/>
+    <p><input type = "submit" value = "Registrati"/></p>
+    <p><a href="/login">Hai già effettuato la registrzione? Effettua il Login!</a></p>
 </form>

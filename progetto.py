@@ -9,6 +9,7 @@ import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import random
+import pandas as pd 
 
 regioni = geopandas.read_file("/workspace/Progetto_Informatica/Reg01012021_g_WGS84.zip")
 regioni = regioni.to_crs(epsg=3857)
@@ -20,6 +21,8 @@ province = province.to_crs(epsg=3857)
 province_name = list(province["DEN_PROV"])
 valore_max = len(province_name)
 
+dati = pd.read_csv("/workspace/Progetto_Informatica/static/csv/dati.csv")
+
 volte = 0
 punteggio = 0
 
@@ -28,35 +31,48 @@ punteggio = 0
 def home():
     return render_template('home.html')
 
-@app.route('/accedi', methods=['GET'])
-def accedi():
-    return render_template('accedi.html')
+# @app.route('/accedi', methods=['GET'])
+# def accedi():
+#    return render_template('accedi.html')
+
 
 @app.route('/registrazione', methods=['GET', 'POST'])
 def registrazione():
     global user
 
-    nick = request.args("Nick")
-    password = request.args("Password")
-    c_password = request.args("Cpassword")
-    email = request.args("Email")
-
+    if request.method == 'GET':
+        return render_template('registrazione.html')
+    else:
+        nick = request.form.get("Nick")
+        email = request.form.get("Email")
+        password = request.form.get("Password")
+        c_password = request.form.get("Cpassword")
+        
+    user = [{"nick": nick, "email": email, "password": password}]
     
-    utente = [{"nick": nick, "password": password,"email":email,"via":via,"civico":civico}]
-    
-    if c_password!= password:
+    if password != c_password:
         return 'Le password non corrispondono'
     else:
-        dati_append = dati.append(utente,ignore_index=True)
-        dati_append.to_csv('./static/file/dati.csv',index=False)
-        return render_template('login.html', name = name, surname = surname, psw = psw , via = via,utente = utente, email = email, civico = civico)
+        dati_append = dati.append(user,ignore_index=True)
+        dati_append.to_csv("/workspace/Progetto_Informatica/static/csv/dati.csv",index=False)
+        return render_template('login.html')
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+
+        if request.method == 'GET':
+            return render_template('login.html')
+        elif request.method == 'POST':
+            password = request.form.get("Password")
+            email = request.form.get("Email")
+            for i, d in dati.iterrows():
+                if email == d["email"] and password == d["password"]:  
+                    return '<h1>Login</h1>'
+
+            return '<h1>Errore</h1>'
 
 @app.route('/difficolta', methods=['GET'])
 def difficolta():
-    global nick, sesso
-
-    nick = request.args["Name"]
-    sesso = request.args["Sex"]
     return render_template('difficolta.html')
 
 @app.route('/quiz_facile', methods=['GET'])
