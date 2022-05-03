@@ -28,6 +28,30 @@ def ricerca():
   MousePosition().add_to(m)
   m.save('templates/map.html')
   m['geometry'] = []
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
   for k in 
   return render_template('homeR.html')
 
