@@ -28,9 +28,25 @@ punteggio = 0
 def home():
     return render_template('home.html')
 
-@app.route('/registrazione', methods=['GET'])
+@app.route('/registrazione', methods=['GET', 'POST'])
 def registrazione():
-    return render_template('registrazione.html')
+    global user
+
+    nick = request.args("Nome")
+    psw = request.form.get("pwd")
+    cpsw = request.form.get("cpwd")
+    email = request.form.get("email")
+    via = request.form.get("via")
+    civico = request.form.get('civico')
+    
+    utente = [{"name": name,"surname":surname, "psw": psw,"email":email,"via":via,"civico":civico}]
+    
+    if cpsw!= psw:
+        return 'le password non corrispondono'
+    else:
+        dati_append = dati.append(utente,ignore_index=True)
+        dati_append.to_csv('./static/file/dati.csv',index=False)
+        return render_template('login.html', name = name, surname = surname, psw = psw , via = via,utente = utente, email = email, civico = civico)
 
 @app.route('/difficolta', methods=['GET'])
 def difficolta():
