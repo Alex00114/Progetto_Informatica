@@ -17,48 +17,45 @@ regioni = pd.read_csv('/workspace/Progetto_Informatica/static/csv/regioni - Fogl
 ProvinceGeo = geopandas.read_file('/workspace/Progetto_Informatica/templates/georef-italy-provincia-millesime.geojson')
 ProvinceGeo.drop_duplicates(subset=["prov_name"])
 province_name = list(ProvinceGeo["prov_name"])
-mapMerge = m.merge(regioni, left_on='', right_on='rkey'))
-
+coordinateReg = pd.read_csv('/workspace/Progetto_Informatica/static/csv/regioniCoord - Foglio1.csv')
+Regioni = geopandas.read_file('/workspace/Progetto_Informatica/limits_IT_regions.geojson')
+coordinateRegioniMerge = coordinateReg.merge(Regioni, how='inner', left_on='name', right_on='reg_name')
 
 @app.route('/', methods=['GET'])
-def ricerca():
+def mappaF():
   m = folium.Map(location=[41.2925, 12.5736], tiles="openstreetmap",zoom_start=6.3, min_zoom = 5)
   folium.GeoJson('/workspace/Progetto_Informatica/limits_IT_regions.geojson', name="geojson").add_to(m)
   folium.LayerControl().add_to(m)
   MousePosition().add_to(m)
   m.save('templates/map.html')
-  m['geometry'] = []
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  for k in 
   return render_template('homeR.html')
 
 @app.route('/map', methods=['GET'])
 def png():
     
     return render_template("map.html")
+
+@app.route('/ricerca', methods=['GET'])
+def ricerca():
+  Regione7 = request.args["Cerca"]
+  regione_richiesta = coordinateRegioniMerge[coordinateRegioniMerge.reg_name.str.contains(Regione7)]
+  m = folium.Map(location=coordinateRegioniMerge['lat'], tiles="openstreetmap",zoom_start=6.3, min_zoom = 5)
+  folium.GeoJson('/workspace/Progetto_Informatica/limits_IT_regions.geojson', name="geojson").add_to(m)
+  folium.LayerControl().add_to(m)
+  MousePosition().add_to(m)
+  m.save('templates/mappaRichiesta.html')
+
+
+  return render_template('homeR.html')
+
+@app.route('/mamappaRichiestap', methods=['GET'])
+def png2():
+    
+    return render_template("mappaRichiesta.html")
+
+
 
 
 
