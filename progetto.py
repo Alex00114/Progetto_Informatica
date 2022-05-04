@@ -168,7 +168,7 @@ def quiz_facile():
     if volte >=11:
         return redirect(url_for("risultato_facile"))
 
-    return render_template("quiz_facile.html", opzione1 = opz1, opzione2 = opz2, opzione3 = opz3, opzione4 = opz4, score = punteggio, name = nick, text = testo)
+    return render_template("quiz_facile.html", opzione1 = opz1, opzione2 = opz2, opzione3 = opz3, opzione4 = opz4, score = punteggio, text = testo)
     
 @app.route('/regione_png', methods=['GET'])
 def regione_png():
