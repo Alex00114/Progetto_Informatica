@@ -4,10 +4,10 @@ lon,lat,name
 16.5,39,Calabria
 14.5,41,Campania
 11,44.75,Emilia-Romagna
-13.1,46.23,Friuli-Venezia Giulia
+13.1,46.23,Friuli-Venezia-Giulia
 12.5,42,Lazio
 8.3,44.5,Liguria
-9.5,45.67,Lombardia 
+9.5,45.6,Lombardia
 13.25,43.5,Marche
 14.5,41.67,Molise
 8,45,Piemonte
@@ -15,7 +15,7 @@ lon,lat,name
 9.01,40.12,Sardegna
 14.25,37.75,Sicilia
 11,43.41,Toscana
-11.3,46.5,Trentino-Alto Adige
+11.3,46.5,Trentino-Alto-Adige
 12.5,43,Umbria
-7.3,45.75,Valle d'Aosta
+7.3,45.75,Valle-d-Aosta
 11.75,45.5,Veneto

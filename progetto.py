@@ -29,7 +29,8 @@ punteggio = 0
 
 @app.route('/', methods=['GET'])
 def home():
-    return render_template('home.html')
+    tabella = pd.read_csv("/workspace/Progetto_Informatica/static/csv/regioniCoord - Foglio1.csv")
+    return render_template('home.html', table = tabella.to_html())
 
 # @app.route('/accedi', methods=['GET'])
 # def accedi():
@@ -67,7 +68,7 @@ def login():
             email = request.form.get("Email")
             for i, d in dati.iterrows():
                 if email == d["email"] and password == d["password"]:  
-                    return '<h1>Login</h1>'
+                    return 'h1>Login</h1>'<
 
             return '<h1>Errore</h1>'
 

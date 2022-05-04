@@ -13,7 +13,7 @@ import pandas as pd
 from folium.plugins import MousePosition
 
 
-regioni = pd.read_csv('/workspace/Progetto_Informatica/static/csv/regioni - Foglio1.csv')
+
 ProvinceGeo = geopandas.read_file('/workspace/Progetto_Informatica/templates/georef-italy-provincia-millesime.geojson')
 ProvinceGeo.drop_duplicates(subset=["prov_name"])
 province_name = list(ProvinceGeo["prov_name"])
@@ -39,18 +39,21 @@ def png():
 
 @app.route('/ricerca', methods=['GET'])
 def ricerca():
+  reg_lista = list(Regioni["reg_name"])
   Regione7 = request.args["Cerca"]
   regione_richiesta = coordinateRegioniMerge[coordinateRegioniMerge.reg_name.str.contains(Regione7)]
-  m = folium.Map(location=coordinateRegioniMerge['lat'], tiles="openstreetmap",zoom_start=6.3, min_zoom = 5)
-  folium.GeoJson('/workspace/Progetto_Informatica/limits_IT_regions.geojson', name="geojson").add_to(m)
-  folium.LayerControl().add_to(m)
-  MousePosition().add_to(m)
-  m.save('templates/mappaRichiesta.html')
+  if Regione7 in reg_lista:
+    latitudine = regione_richiesta["lat"]
+    longitudine = regione_richiesta["lon"]
+    m = folium.Map(location= [latitudine,longitudine], tiles="openstreetmap",zoom_start=9, min_zoom = 8)
+    folium.LayerControl().add_to(m)
+    MousePosition().add_to(m)
+    m.save('templates/mappaRichiesta.html')
+    return render_template('cerca.html')
+  else:
+    return '<h1>ERRORE</h1>'
 
-
-  return render_template('homeR.html')
-
-@app.route('/mamappaRichiestap', methods=['GET'])
+@app.route('/mappaRichiesta', methods=['GET'])
 def png2():
     
     return render_template("mappaRichiesta.html")
