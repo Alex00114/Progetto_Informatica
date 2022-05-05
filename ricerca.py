@@ -13,24 +13,25 @@ import pandas as pd
 from folium.plugins import MousePosition
 
 
-
+regioniData= pd.read_csv('/workspace/Progetto_Informatica/static/csv/regioni - Foglio1.csv')
 ProvinceGeo = geopandas.read_file('/workspace/Progetto_Informatica/templates/georef-italy-provincia-millesime.geojson')
 ProvinceGeo.drop_duplicates(subset=["prov_name"])
 province_name = list(ProvinceGeo["prov_name"])
 coordinateReg = pd.read_csv('/workspace/Progetto_Informatica/static/csv/regioniCoord - Foglio1.csv')
 Regioni = geopandas.read_file('/workspace/Progetto_Informatica/limits_IT_regions.geojson')
 coordinateRegioniMerge = coordinateReg.merge(Regioni, how='inner', left_on='name', right_on='reg_name')
+coordinateRegData = coordinateReg.merge(regioniData, how='inner', left_on='name', right_on='Regione')
 
 @app.route('/', methods=['GET'])
 def mappaF():
   m = folium.Map(location=[41.2925, 12.5736], tiles="openstreetmap",zoom_start=6.3, min_zoom = 5)
-  folium.GeoJson('/workspace/Progetto_Informatica/limits_IT_regions.geojson', name="geojson").add_to(m)
+  #folium.GeoJson('/workspace/Progetto_Informatica/limits_IT_regions.geojson', name="geojson").add_to(m)
   folium.LayerControl().add_to(m)
-  MousePosition().add_to(m)
-  m.save('templates/map.html')
-
-
-  return render_template('homeR.html')
+  for index, location_info in coordinateReg.iterrows():
+    folium.Marker([location_info["lat"], location_info["lon"]], popup=location_info["name"]).add_to(m)
+    return render_template('homeR.html')
+    m.save('templates/map.html')
+  
 
 @app.route('/map', methods=['GET'])
 def png():
@@ -46,6 +47,7 @@ def ricerca():
     latitudine = regione_richiesta["lat"]
     longitudine = regione_richiesta["lon"]
     m = folium.Map(location= [latitudine,longitudine], tiles="openstreetmap",zoom_start=9, min_zoom = 8)
+
     folium.LayerControl().add_to(m)
     MousePosition().add_to(m)
     m.save('templates/mappaRichiesta.html')
