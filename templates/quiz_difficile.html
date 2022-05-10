@@ -1,0 +1,23 @@
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <h2>                 PUNTEGGIO: {{score}}</h2>
+    <h3>{{tempo}}</h3>
+    <h1 id = "sottotitolo">{{text}}</h1>
+    <img src="/regione_png">
+
+    var now = new Date().getTime();
+
+    var countDownDate = new Date("Jan 5, 2024 15:37:25").getTime();
+
+
+
+    <form action="/quiz_difficle" method = "GET">
+        <p>
+            <input type = "radio" name = "Scelta" value={{opzione1}} required/>{{opzione1}} <input type = "radio" name = "Scelta" value={{opzione2}} />{{opzione2}} <br>
+            <input type = "radio" name = "Scelta" value={{opzione3}} />{{opzione3}} <input type = "radio" name = "Scelta" value={{opzione4}} />{{opzione4}}
+        </p>
+        <p><input type = "submit" value = "Conferma Scelte" /></p>
+    </form>
+</body>
