@@ -25,28 +25,33 @@ coordinateRegData = coordinateReg.merge(regioniData, how='inner', left_on='name'
 @app.route('/', methods=['GET'])
 def mappaF():
   m = folium.Map(location=[41.2925, 12.5736], tiles="openstreetmap",zoom_start=6.3, min_zoom = 5)
-  #folium.GeoJson('/workspace/Progetto_Informatica/limits_IT_regions.geojson', name="geojson").add_to(m)
+  
+  
+  for index, row in coordinateRegioniMerge.iterrows():
+    folium.Marker([row["lat"], row["lon"]], popup=regioniData).add_to(m)
+    
+  folium.GeoJson('/workspace/Progetto_Informatica/limits_IT_regions.geojson', name="geojson").add_to(m)
   folium.LayerControl().add_to(m)
-  for index, location_info in coordinateReg.iterrows():
-    folium.Marker([location_info["lat"], location_info["lon"]], popup=location_info["name"]).add_to(m)
-    return render_template('homeR.html')
-    m.save('templates/map.html')
+  m.save('templates/map.html')
+  return render_template('homeR.html')
   
 
 @app.route('/map', methods=['GET'])
-def png():
+def png():\
     
     return render_template("map.html")
 
 @app.route('/ricerca', methods=['GET'])
 def ricerca():
   reg_lista = list(Regioni["reg_name"])
-  Regione7 = request.args["Cerca"]
-  regione_richiesta = coordinateRegioniMerge[coordinateRegioniMerge.reg_name.str.contains(Regione7)]
-  if Regione7 in reg_lista:
-    latitudine = regione_richiesta["lat"]
-    longitudine = regione_richiesta["lon"]
+  Regione = request.args["Cerca"]
+  regione_richiesta = Regioni[Regioni["reg_name"].str.contains(Regione)]
+  regione_richiesta2 = coordinateRegioniMerge[coordinateRegioniMerge.reg_name.str.contains(Regione)]
+  if Regione in reg_lista:
+    latitudine = regione_richiesta2["lat"]
+    longitudine = regione_richiesta2["lon"]
     m = folium.Map(location= [latitudine,longitudine], tiles="openstreetmap",zoom_start=9, min_zoom = 8)
+    folium.GeoJson(regione_richiesta, name="geojson").add_to(m)
 
     folium.LayerControl().add_to(m)
     MousePosition().add_to(m)
