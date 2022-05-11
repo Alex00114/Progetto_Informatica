@@ -25,6 +25,9 @@
     time = setInterval(function(){
         document.getElementById("output").innerHTML = distance;
         distance = distance - 1;
+        if (distance <= 0) {
+            window.alert('Tempo Scaduto!')
+        }
     },1000);
 </script>
 </body>
