@@ -1,0 +1,30 @@
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+    <h2>PUNTEGGIO: {{score}}</h2>
+    <p id="output"></p>
+    <h1 id = "sottotitolo">{{text}}</h1>
+    <img src="/regione_png">
+    
+    <form action="/quiz_difficile" method = "GET">
+        <p>
+            <input type = "radio" name = "Scelta" value={{opzione1}} required/>{{opzione1}} <input type = "radio" name = "Scelta" value={{opzione2}} />{{opzione2}} <br>
+            <input type = "radio" name = "Scelta" value={{opzione3}} />{{opzione3}} <input type = "radio" name = "Scelta" value={{opzione4}} />{{opzione4}}
+        </p>
+        <p><input type = "submit" value = "Conferma Scelte" /></p>
+    </form>
+<script>
+    var fine = new Date();
+    var now = new Date();
+    fine.setSeconds(fine.getSeconds() + 20);
+    var distance = fine - now;
+    distance = distance / 1000
+
+    time = setInterval(function(){
+        document.getElementById("output").innerHTML = distance;
+        distance = distance - 1;
+    },1000);
+</script>
+</body>
