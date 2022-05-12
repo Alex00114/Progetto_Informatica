@@ -12,19 +12,16 @@ import random
 import pandas as pd 
 
 regioni = geopandas.read_file("/workspace/Progetto_Informatica/Reg01012021_g_WGS84.zip")
-regioni = regioni.to_crs(epsg=3857)
 regioni_name = list(regioni["DEN_REG"])
 
 province = geopandas.read_file("/workspace/Progetto_Informatica/ProvCM01012021_g_WGS84.zip")
-province = province.to_crs(epsg=3857)
-
 province_name = list(province["DEN_PROV"])
 valore_max = len(province_name)
 
 dati = pd.read_csv("/workspace/Progetto_Informatica/static/csv/dati.csv")
 
 volte = 0
-domanda = 1
+domanda = 0
 punteggio = 0
 
 
@@ -78,7 +75,7 @@ def difficolta():
 
 @app.route('/quiz_facile', methods=['GET'])
 def quiz_facile():
-    global mappa_quiz, risposta, volte, punteggio, corretta, valore_max, regioni, domanda
+    global mappa_quiz, risposta, volte, punteggio, corretta, valore_max, regioni, domanda, regioni_name, reg_provincia
     regioni_province = random.randint(0,1)
 
     if volte >=0:
@@ -163,10 +160,14 @@ def quiz_facile():
             mappa_quiz = province[province["DEN_PROV"] == opz4]
             corretta = opz4
         
-        domanda = domanda + 1
+        
         reg_provincia = regioni[regioni.contains(mappa_quiz.geometry.squeeze())]
-        reg_provincia = regioni_name[regioni_name == str(reg_provincia["DEN_REG"])]
-        testo =  "Indovina la Provincia appartenente alla Regione " + reg_provincia
+        for reg in regioni_name:
+            if reg == str(reg_provincia['DEN_REG']):
+                reg_provincia2 = reg
+                break
+        testo =   reg_provincia2
+    domanda = domanda + 1
     if volte >=11:
         return redirect(url_for("risultato_facile"))
 
