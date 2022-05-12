@@ -25,7 +25,6 @@ coordinateProvinceMerge = coordinateProv.merge(Province, how='inner', left_on='P
 @app.route('/', methods=['GET'])
 def mappaF():
   m = folium.Map(location=[41.2925, 12.5736], tiles="openstreetmap",zoom_start=6.3, min_zoom = 5)
-  
   for index, row in coordinateRegioniMerge.iterrows():
     folium.Marker([row["lat"], row["lon"]], popup=regioniData).add_to(m)
     
@@ -46,6 +45,7 @@ def ricerca():
   Regione = request.args["Cerca"]
   regione_richiesta = Regioni[Regioni["reg_name"].str.contains(Regione)]
   regione_richiesta2 = coordinateRegioniMerge[coordinateRegioniMerge.reg_name.str.contains(Regione)]
+  regione_richiesta_Data = coordinateRegioniMerge[coordinateRegioniMerge['reg_name'].str.contains(regioniData)]
   if Regione in reg_lista:
     latitudine = regione_richiesta2["lat"]
     longitudine = regione_richiesta2["lon"]
@@ -55,7 +55,7 @@ def ricerca():
     folium.LayerControl().add_to(m)
     MousePosition().add_to(m)
     m.save('templates/mappaRichiesta.html')
-    return render_template('cerca.html')
+    return render_template('cerca.html' table = regione_richiesta_Data)
   else:
     return '<h1>ERRORE</h1>'
 
@@ -64,8 +64,13 @@ def png2():
     
     return render_template("mappaRichiesta.html")
 
+
+
+
+
+
 @app.route('/Province', methods=['GET'])
-def Province():
+def Province1():
   m = folium.Map(location=[41.2925, 12.5736], tiles="openstreetmap",zoom_start=6.3, min_zoom = 5)
   for index, row in coordinateProvinceMerge.iterrows():
     folium.Marker([row["lat"], row["lon"]]).add_to(m)
@@ -77,16 +82,18 @@ def Province():
 
 @app.route('/mappa', methods=['GET'])
 def png3():\
-    
     return render_template("mappa.html")
 
 @app.route('/ricercaProv', methods=['GET'])
 def ricercaProv():
   prov_lista = list(Province["prov_name"])
+  
   Provincia = request.args["CercaProv"]
-  provincia_richiesta = Province[Province["prov_name"].str.contains(Provincia)]
-  provincia_richiesta2 = coordinateProvinceMerge[coordinateProvinceMerge.reg_name.str.contains(Provincia)]
+  
   if Provincia in prov_lista:
+    provincia_richiesta = Province[Province["prov_name"].str.contains(Provincia)]
+    provincia_richiesta2 = coordinateProvinceMerge[coordinateProvinceMerge.prov_name.str.contains(Provincia)]
+    print(provincia_richiesta2)
     latitudine = provincia_richiesta2["lat"]
     longitudine = provincia_richiesta2["lon"]
     m = folium.Map(location= [latitudine,longitudine], tiles="openstreetmap",zoom_start=9, min_zoom = 8)
