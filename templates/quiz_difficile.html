@@ -4,6 +4,7 @@
 <body>
 
     <h2>PUNTEGGIO: {{score}}</h2>
+    <h2>{{question}}/10</h2>
     <p id="output"></p>
     <h1 id = "sottotitolo">{{text}}</h1>
     <img src="/regione_png">
@@ -21,12 +22,14 @@
     fine.setSeconds(fine.getSeconds() + 20);
     var distance = fine - now;
     distance = distance / 1000
+    timer = 20
 
     time = setInterval(function(){
-        document.getElementById("output").innerHTML = distance;
-        distance = distance - 1;
-        if (distance <= 0) {
-            window.alert('Tempo Scaduto!')
+        document.getElementById("output").innerHTML = timer;
+        timer = timer - 1;
+        if (timer == -2) {
+            window.alert('Tempo Scaduto!');
+            window.location.href = '/quiz_difficile2';
         }
     },1000);
 </script>
