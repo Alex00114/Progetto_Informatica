@@ -14,8 +14,9 @@ import pandas as pd
 regioni = geopandas.read_file("/workspace/Progetto_Informatica/Reg01012021_g_WGS84.zip")
 regioni_name = list(regioni["DEN_REG"])
 
-province = geopandas.read_file("/workspace/Progetto_Informatica/ProvCM01012021_g_WGS84.zip")
-province_name = list(province["DEN_PROV"])
+province = geopandas.read_file("/workspace/Progetto_Informatica/limits_IT_provinces.geojson")
+province = province.to_crs(epsg=32632)
+province_name = list(province["prov_name"])
 valore_max = len(province_name)
 
 dati = pd.read_csv("/workspace/Progetto_Informatica/static/csv/dati.csv")
@@ -136,37 +137,34 @@ def quiz_facile():
             opz2 = province_name[j]
             opz3 = province_name[k]
             opz4 = province_name[l]
-            mappa_quiz = province[province["DEN_PROV"] == opz1]
+            mappa_quiz = province[province["prov_name"] == opz1]
             corretta = opz1
         elif opzioni == 1:
             opz1 = province_name[j]
             opz2 = province_name[i]
             opz3 = province_name[l]
             opz4 = province_name[k]
-            mappa_quiz = province[province["DEN_PROV"] == opz2]
+            mappa_quiz = province[province["prov_name"] == opz2]
             corretta = opz2
         elif opzioni == 2:
             opz1 = province_name[k]
             opz2 = province_name[j]
             opz3 = province_name[i]
             opz4 = province_name[l]
-            mappa_quiz = province[province["DEN_PROV"] == opz3]
+            mappa_quiz = province[province["prov_name"] == opz3]
             corretta = opz3
         else:
             opz1 = province_name[l]
             opz2 = province_name[k]
             opz3 = province_name[j]
             opz4 = province_name[i]
-            mappa_quiz = province[province["DEN_PROV"] == opz4]
+            mappa_quiz = province[province["prov_name"] == opz4]
             corretta = opz4
         
         
         reg_provincia = regioni[regioni.contains(mappa_quiz.geometry.squeeze())]
-        for reg in regioni_name:
-            if reg == str(reg_provincia['DEN_REG']):
-                reg_provincia2 = reg
-                break
-        testo =   reg_provincia2
+        reg_provincia2 = reg_provincia["DEN_REG"].values[0]
+        testo =   "La provincia appartiene alla regione " + reg_provincia2
     domanda = domanda + 1
     if volte >=11:
         return redirect(url_for("risultato_facile"))
@@ -236,28 +234,28 @@ def quiz_difficile():
             opz2 = province_name[j]
             opz3 = province_name[k]
             opz4 = province_name[l]
-            mappa_quiz = province[province["DEN_PROV"] == opz1]
+            mappa_quiz = province[province["prov_name"] == opz1]
             corretta = opz1
         elif opzioni == 1:
             opz1 = province_name[j]
             opz2 = province_name[i]
             opz3 = province_name[l]
             opz4 = province_name[k]
-            mappa_quiz = province[province["DEN_PROV"] == opz2]
+            mappa_quiz = province[province["prov_name"] == opz2]
             corretta = opz2
         elif opzioni == 2:
             opz1 = province_name[k]
             opz2 = province_name[j]
             opz3 = province_name[i]
             opz4 = province_name[l]
-            mappa_quiz = province[province["DEN_PROV"] == opz3]
+            mappa_quiz = province[province["prov_name"] == opz3]
             corretta = opz3
         else:
             opz1 = province_name[l]
             opz2 = province_name[k]
             opz3 = province_name[j]
             opz4 = province_name[i]
-            mappa_quiz = province[province["DEN_PROV"] == opz4]
+            mappa_quiz = province[province["prov_name"] == opz4]
             corretta = opz4
         
         domanda = domanda + 1
@@ -328,28 +326,28 @@ def quiz_difficile2():
             opz2 = province_name[j]
             opz3 = province_name[k]
             opz4 = province_name[l]
-            mappa_quiz = province[province["DEN_PROV"] == opz1]
+            mappa_quiz = province[province["prov_name"] == opz1]
             corretta = opz1
         elif opzioni == 1:
             opz1 = province_name[j]
             opz2 = province_name[i]
             opz3 = province_name[l]
             opz4 = province_name[k]
-            mappa_quiz = province[province["DEN_PROV"] == opz2]
+            mappa_quiz = province[province["prov_name"] == opz2]
             corretta = opz2
         elif opzioni == 2:
             opz1 = province_name[k]
             opz2 = province_name[j]
             opz3 = province_name[i]
             opz4 = province_name[l]
-            mappa_quiz = province[province["DEN_PROV"] == opz3]
+            mappa_quiz = province[province["prov_name"] == opz3]
             corretta = opz3
         else:
             opz1 = province_name[l]
             opz2 = province_name[k]
             opz3 = province_name[j]
             opz4 = province_name[i]
-            mappa_quiz = province[province["DEN_PROV"] == opz4]
+            mappa_quiz = province[province["prov_name"] == opz4]
             corretta = opz4
         
         domanda = domanda + 1
