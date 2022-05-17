@@ -72,7 +72,11 @@ def login():
 
 @app.route('/difficolta', methods=['GET'])
 def difficolta():
-    return render_template('difficolta.html')
+    diff = request.args["Diff"]
+    if diff == "Facile":
+        return redirect(url_for("quiz_facile"))
+    else:
+        return redirect(url_for("quiz_difficile"))
 
 @app.route('/quiz_facile', methods=['GET'])
 def quiz_facile():
@@ -162,9 +166,9 @@ def quiz_facile():
             corretta = opz4
         
         
-        reg_provincia = regioni[regioni.contains(mappa_quiz.geometry.squeeze())]
-        reg_provincia2 = reg_provincia["DEN_REG"].values[0]
-        testo =   "La provincia appartiene alla regione " + reg_provincia2
+        reg_provincia = mappa_quiz["reg_name"].values[0]        
+        testo =  "La provincia appartiene alla regione " + str(reg_provincia)
+
     domanda = domanda + 1
     if volte >=11:
         return redirect(url_for("risultato_facile"))
