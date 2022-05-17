@@ -45,7 +45,7 @@ def ricerca():
   Regione = request.args["Cerca"]
   regione_richiesta = Regioni[Regioni["reg_name"].str.contains(Regione)]
   regione_richiesta2 = coordinateRegioniMerge[coordinateRegioniMerge.reg_name.str.contains(Regione)]
-  regione_richiesta_Data = coordinateRegioniMerge[coordinateRegioniMerge['reg_name'].str.contains(regioniData)]
+  regione_richiesta_Data = regioniData[regioniData['Regione'].str.contains(Regione)]
   if Regione in reg_lista:
     latitudine = regione_richiesta2["lat"]
     longitudine = regione_richiesta2["lon"]
@@ -55,7 +55,7 @@ def ricerca():
     folium.LayerControl().add_to(m)
     MousePosition().add_to(m)
     m.save('templates/mappaRichiesta.html')
-    return render_template('cerca.html' table = regione_richiesta_Data)
+    return render_template('cerca.html', table = regione_richiesta_Data.to_html())
   else:
     return '<h1>ERRORE</h1>'
 
