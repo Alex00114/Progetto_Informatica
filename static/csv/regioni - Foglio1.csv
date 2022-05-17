@@ -1,9 +1,4 @@
-Regione,"Popolazione
-residenti","Superficie
-km²","Densità
-abitanti/km²","Numero
-Comuni","Numero
-Provincez"
+Regione,"Popolazione","Superficie","Densità","Numero_Comuni","Numero_Province"
 Lombardia,25.30.14,"23.863,10",418,926,12
 Lazio,17.16.39,"17.231,72",333,378,5
 Campania,15.28.20,"13.670,60",411,550,5
