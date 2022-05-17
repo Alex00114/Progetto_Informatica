@@ -4,7 +4,7 @@
 #cobra {
     position: absolute;
     top: 2%;
-    right: 50%;
+    left: 43.5%;
 }
 #accedi_png {
     position: absolute;
@@ -13,11 +13,36 @@
 }
 #ricerca {
     position: absolute;
-    top: 1%;
-    left: 50%
+    top: 20%;
+    left: 15%;
 }
 #quiz {
     position: absolute;
-    top: 30%;
-    left: 30%;
+    top: 20%;
+    right: 15%;
+}
+#easy {
+    position: absolute;
+    top: 65%;
+    right: 36%;
+}
+#easy_img {
+    position: absolute;
+    top: 65%;
+    right:36%;
+}
+#hard {
+    position: absolute;
+    top: 65%;
+    right: 20%;
+}
+#hard_img {
+    position: absolute;
+    top: 65%;
+    right: 20%;
+}
+#Difficolta {
+    position: absolute;
+    top: 59%;
+    right: 22.5%;
 }

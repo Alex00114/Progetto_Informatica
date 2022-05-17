@@ -4,20 +4,21 @@
         <title>Home</title>
     </head>
     <body id = "home">
-        <img id = "cobra" src="static/images/Cobra(3).png" width="300" height="200">
+        <img id = "cobra" src="static/images/Cobra(3).png" width="15%" height="17%">
         <a id = "accedi_png" href = "/registrazione"><img src="static/images/login(1).png" width="100" height="100"></a>
         <a id = "ricerca" href = "/ricerca"><img src="static/images/explore.jpg" width="600" height="400"></a>
         <form action="/difficolta" method = "GET">
             <label>
-                <input type="radio" name="Diff" value="Facile" required>
-                <img src="static/images/slow.png">
+                <input id = "easy_img" type="radio" name="Diff" value="Facile" required>
+                <img id = "easy_img" src="static/images/slow.png" width = "100" height = "85">
             </label>
             <label>
-                <input type="radio" name="Diff" value="Difficile" required>
-                <img src="static/images/fast.png">
+                <input id = "hard" type="radio" name="Diff" value="Difficile" required>
+                <img id = "hard_img" src="static/images/fast.png" width = "100" height = "85">
             </label>
-            <input type = "image" id = "quiz" src="static/images/quizHome.jpg" width="30%" height="40%" alt = "Submit Form">
+            <input type = "image" id = "quiz" src="static/images/quizHome.jpg" width="600px" height="400px" alt = "Submit Form">
         </form>
+        <b><h1 id = "Difficolta">Seleziona la difficoltà:</h1></b>
         <script>
             
                 
