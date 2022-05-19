@@ -23,7 +23,8 @@ coorditateRegDatiMerge = coordinateRegioniMerge.merge(regioniData, how='inner', 
 coordinateRegData = coordinateReg.merge(regioniData, how='inner', left_on='name', right_on='Regione')
 coordinateProvinceMerge = coordinateProv.merge(Province, how='inner', left_on='Provincia', right_on='prov_name')
 
-
+provdata = pd.read_csv('/workspace/Progetto_Informatica/ProvCM01012021_g_WGS84.zip')
+print(provdata)
 
 @app.route('/', methods=['GET'])
 def mappaF():
