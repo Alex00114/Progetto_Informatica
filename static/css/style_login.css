@@ -1,0 +1,29 @@
+#background_regi {
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    min-width: 100%;
+    min-height: 100%;
+}
+#form_regi {
+    position:absolute;
+    background-color: rgb(175, 59, 150);
+    width: 26.5%;
+    height: 40%;
+    left: 36.5%;
+    top: 28%;
+    border: 15px solid rgb(131, 31, 156);
+}
+.form_regis {
+    color: rgb(255, 255, 255);
+}
+a:link {
+    color: white;
+}
+a:visited {
+    color: white;
+
+}
+#login_link {
+    font-weight: bold;
+}

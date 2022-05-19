@@ -1,12 +1,23 @@
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style_login.css') }}">
+    <title>Registrazione</title>
+</head>
+<body>
+<img id = "background_regi" src = "static/images/paesaggioFuturisticoViola.jpg">
 <form action="/" method = "POST">
-    <h3>Nickname</h3> <br>
-    <input type = "text" name = "Nick" required/>
-    <h3>Email</h3> <br>
-    <input type = "email" name = "Email" pattern = ".+@gmail\.com" title = "@gmail.com" size = "30" required/>
-    <h3>Password</h3> <br>
-    <input type = "password" name = "Password" required/>
-    <h3>Confirm Password</h3> <br>
-    <input type = "password" name = "Cpassword" required/>
-    <p><input type = "submit" value = "Registrati"/></p>
-    <p><a href="/login">Hai già effettuato la registrzione? Effettua il Login!</a></p>
+    <div id = "form_regi">
+        <center>
+        <h2 class = "form_regis">Nickname</h2> <br>
+        <input type = "text" name = "Nick" required/>
+        <h2 class = "form_regis">Email</h2> <br>
+        <input type = "email" name = "Email" pattern = ".+@gmail\.com" title = "@gmail.com" size = "30" required/>
+        <h2 class = "form_regis">Password</h2> <br>
+        <input type = "password" name = "Password" required/>
+        <h2 class = "form_regis">Conferma Password</h2> <br>
+        <input type = "password" name = "Cpassword" required/>
+        <p><input type = "submit" value = "Registrati"/></p>
+        <p class = "form_regis" id = "login_link"><a href="/login">Hai già effettuato la registrzione? Effettua il Login!</a></p>
+        </center>
+    </div>
 </form>
+</body>
