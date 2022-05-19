@@ -6,22 +6,32 @@
     <body id = "home">
         <img id = "banda" src="static/images/Banda Viola(2).png" width="100%" height="18.4%">
         <img id = "cobra" src="static/images/Cobra(3).png" width="15%" height="17%">
-        <a id = "accedi_png" href = "/registrazione"><img src="static/images/login(1).png" width="100" height="100"></a>
+        <h1 id = "nome">Utente: {{nome}}</h1>
+        <img id = "logout_png" src="static/images/logout.png" width="100" height="100" onclick="logoutFun()">
         <a href = "/ricerca"><img id = "ricerca_home" src="static/images/explore_giusto.jpg"></a>
         <form action="/difficolta" method = "GET">
             <label>
-                <input id = "easy_img" type="radio" name="Diff" value="Facile" required>
-                <img id = "easy_img" src="static/images/slow.png" width = "100" height = "85">
+                <input id = "easy" type="radio" name="Diff" value="Facile" required>
+                <img id = "easy_img" src="static/images/slow.png">
             </label>
             <label>
                 <input id = "hard" type="radio" name="Diff" value="Difficile" required>
-                <img id = "hard_img" src="static/images/fast.png" width = "100" height = "85">
+                <img id = "hard_img" src="static/images/fast.png">
             </label>
             <input type = "image" id = "quiz" src="static/images/quiz_giusto.jpg" alt = "Submit Form">
         </form>
-        <b><h1 id = "Difficolta">Seleziona la difficoltà:</h1></b>
+        <h1 id = "Difficolta">Seleziona la difficoltà:</h1>
         <center><h2 id = "desc_explore">Nella sezione "explore" potrai interagire con una mappa geografica dell'Italia, ed attraverso quest'utlima potrai reperire le informazioni riguardanti le regioni e le province dell'Italia stessa</h2></center>
         <center><h2 id = "desc_quiz">Nella sezione "quiz" potrai intrattenerti con una serie di domande inerenti alla mappa geografica dell'Italia</h2></center>
-
+        <center><h2 id = "desc_quiz2">Modalità difficile: avrai solo 20 secondi per rispondere alla domanda e non riceverai alcun auto per quanto riguarda le province</h2></center>
+        <script>
+            function logoutFun() {
+                if (window.confirm('Sei sicuro di voler effettuare il logout?')) {
+                    window.location.href = "/"
+                }else {
+                    window.location.href = "/home"
+                }
+            }
+        </script>
     </body>
 </html>
