@@ -1,14 +1,23 @@
 <head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style_login.css') }}">
     <title>Login</title>
 </head>
 <body>
     <img id = "background_regi" src = "static/images/paesaggioFuturisticoViola.jpg">
-    <form action="/login" method="POST">
-        <h3>Nickname</h3> <br>
-        <input type = "text" name = "Nick" required/>
-        <p>Email<input type="email" name="Email" pattern=".+@gmail.com" size="30" required></p>
-        <p>Password <input type = "password" name ="Password" required/></p>
-        <p><input type = "submit" value = "Login"/></p>
-        <a href="/"><p>Se non sei hai mai fatto l'accesso effettua la registrazione!</p></a>
-    </form>
+    <img id = "cobra" src="static/images/Cobra(3).png" width="15%" height="17%">
+    <h1 id = "benvenuto">Benvenuto su GeoCobra</h1>
+    <div id = "form_regi">
+        <center>
+            <form action="/login" method="POST">
+                <h2 class = "form_regis">Nickname</h2> <br>
+                <input type = "text" name = "Nick" required/>
+                <h2 class = "form_regis">Email</h2> <br>
+                <input type="email" name="Email" pattern=".+@gmail.com" size="30" required>
+                <h2 class = "form_regis">Password</h2> <br>
+                <input type = "password" name ="Password" required/> <br> <br> <br>
+                <p><input id = "submit" type = "submit" value = "Login"/></p><br>
+                <a href="/"><p>Se non sei hai mai fatto l'accesso effettua la registrazione!</p></a>
+            </form>
+        </center>
+    </div>
 </body>

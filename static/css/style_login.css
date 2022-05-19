@@ -8,10 +8,10 @@
 #form_regi {
     position:absolute;
     background-color: rgb(175, 59, 150);
-    width: 26.5%;
-    height: 40%;
-    left: 36.5%;
-    top: 28%;
+    width: 29%;
+    height: 46%;
+    left: 34.5%;
+    top: 25%;
     border: 15px solid rgb(131, 31, 156);
 }
 .form_regis {
@@ -22,8 +22,33 @@ a:link {
 }
 a:visited {
     color: white;
-
 }
 #login_link {
     font-weight: bold;
+}
+#submit {
+    background-color: #ffffff;
+    border: none;
+    color: rgb(0, 0, 0);
+    padding: 14px 22px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+#cobra {
+    position:absolute;
+    left: 3%;
+    top: 2.5%;
+}
+#benvenuto {
+    position:absolute;
+    font-weight: bold;
+    color:#ffffff;
+    font-size: 70px;
+    text-align: center;
+    left: 35%;
+    top: 0.3%;
 }

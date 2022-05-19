@@ -58,7 +58,7 @@ def login():
         password = request.form.get("Password")
         email = request.form.get("Email")
         for i, d in dati.iterrows():
-            if email == d["email"] and password == d["password"]:  
+            if email == d["email"] and password == d["password"] and utente == d["nick"]:  
                 return redirect(url_for("home"))
 
         return '<script>alert("I dati non sono corretti")</script>'

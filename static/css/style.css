@@ -1,10 +1,10 @@
 #home {
-    background-color: rgb(97, 37, 153);
+    background-color: rgb(168, 47, 142);
 }
 #banda {
     position: absolute;
-    top: 0%;
-    left:0%;
+    top: 0;
+    left:0;
 }
 #cobra {
     position: absolute;
@@ -67,6 +67,7 @@
     top: 59%;
     right: 23.6%;
     height:3%;
+    color:rgb(255, 255, 255)
 }
 #desc_explore {
     position: absolute;
