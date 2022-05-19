@@ -262,8 +262,9 @@ def quiz_difficile():
             mappa_quiz = province[province["prov_name"] == opz4]
             corretta = opz4
         
-        domanda = domanda + 1
+    
         testo =  "Indovina la Provincia!"
+    domanda = domanda + 1
     if volte >=11:
         return redirect(url_for("risultato_difficile"))
 
@@ -374,6 +375,10 @@ def regione_png():
 @app.route('/risultato_facile', methods=['GET'])
 def risultato_facile():
     return render_template('risultato_facile.html')
+
+@app.route('/risultato_difficile', methods=['GET'])
+def risultato_difficile():
+    return render_template('risultato_difficile.html')
 
 
 if __name__ == '__main__':

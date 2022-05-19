@@ -4,6 +4,7 @@
 #banda {
     position: absolute;
     top: 0%;
+    left:0%;
 }
 #cobra {
     position: absolute;
@@ -54,5 +55,6 @@
     position: absolute;
     top: 73%;
     left: 17%;
-    color:rgb(255, 255, 255)
+    color:rgb(255, 255, 255);
+    width: 20%;
 }
