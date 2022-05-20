@@ -30,6 +30,10 @@
     left: 15%;
     width: 30%;
     height: 40%;
+    transition: transform .2s;
+}
+#ricerca_home:hover {
+transform: scale(1.5); 
 }
 #quiz {
     position: absolute;
@@ -37,6 +41,10 @@
     right: 15%;
     width: 30%;
     height: 40%;
+    transition: transform .2s;
+}
+#quiz:hover {
+    transform: scale(1.5); 
 }
 #easy {
     position: absolute;
