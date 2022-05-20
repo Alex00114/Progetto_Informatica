@@ -1,18 +1,21 @@
 <head>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style2.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style_quiz.css') }}">
     <title>Quiz</title>
 </head>
 <body>
     <img id = "background_quiz" src = "static/images/quiz.jpg">
-    <h2>PUNTEGGIO: {{score}}</h2>
-    <h2>{{question}}/10</h2>
-    <h1 id = "sottotitolo">{{text}}</h1>
+    <h1 id = "user">GIOCATORE: {{nome}}</h1>
+    <h2 id = "punti">PUNTEGGIO: {{score}}</h2>
+    <h2 id = "domanda">DOMANDA: {{question}}/10</h2>
+    <h1 id = "indicazione">{{text}}</h1>
     <img id = "regione" src="/regione_png">
-    <form action="/quiz_facile" method = "GET">
-        <p>
-            <input type = "radio" name = "Scelta" value={{opzione1}} required/>{{opzione1}} <input type = "radio" name = "Scelta" value={{opzione2}} />{{opzione2}} <br>
-            <input type = "radio" name = "Scelta" value={{opzione3}} />{{opzione3}} <input type = "radio" name = "Scelta" value={{opzione4}} />{{opzione4}}
-        </p>
-        <p><input type = "submit" value = "Conferma Scelte" /></p>
-    </form>
+    <div id = "opzioni">
+        <form action="/quiz_facile" method = "GET">
+            <p>
+                <input type = "radio" name = "Scelta" value={{opzione1}} required/>{{opzione1}} <input type = "radio" name = "Scelta" value={{opzione2}} />{{opzione2}} <br> <br>
+                <input type = "radio" name = "Scelta" value={{opzione3}} />{{opzione3}} <input type = "radio" name = "Scelta" value={{opzione4}} />{{opzione4}}
+            </p>
+            <p><input id = "submit" type = "submit" value = "Conferma Scelta" /></p>
+        </form>
+    </div>
 </body>

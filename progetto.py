@@ -65,8 +65,10 @@ def login():
 
 @app.route('/home', methods=['GET'])
 def home():
-    global utente
+    global utente, volte, domanda
 
+    domanda = 0
+    volte = 0
     return render_template('home.html', nome = utente)
 
 @app.route('/difficolta', methods=['GET'])
@@ -79,7 +81,7 @@ def difficolta():
 
 @app.route('/quiz_facile', methods=['GET'])
 def quiz_facile():
-    global mappa_quiz, risposta, volte, punteggio, corretta, valore_max, regioni, domanda, regioni_name, reg_provincia
+    global mappa_quiz, risposta, volte, punteggio, corretta, valore_max, regioni, domanda, regioni_name, reg_provincia, utente
     regioni_province = random.randint(0,1)
 
     if volte >=0:
@@ -172,7 +174,7 @@ def quiz_facile():
     if volte >=11:
         return redirect(url_for("risultato_facile"))
 
-    return render_template("quiz_facile.html", opzione1 = opz1, opzione2 = opz2, opzione3 = opz3, opzione4 = opz4, score = punteggio, text = testo, question = domanda)
+    return render_template("quiz_facile.html", opzione1 = opz1, opzione2 = opz2, opzione3 = opz3, opzione4 = opz4, score = punteggio, text = testo, question = domanda, nome = utente)
 
 @app.route('/quiz_difficile', methods=['GET'])
 def quiz_difficile():

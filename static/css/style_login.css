@@ -10,7 +10,7 @@
     background-color: rgb(175, 59, 150);
     width: 29%;
     height: 46%;
-    left: 34.5%;
+    left: 34.7%;
     top: 25%;
     border: 15px solid rgb(131, 31, 156);
 }
@@ -49,6 +49,7 @@ a:visited {
     color:#ffffff;
     font-size: 70px;
     text-align: center;
-    left: 35%;
+    width:100%;
+    left: 0;
     top: 0.3%;
 }
