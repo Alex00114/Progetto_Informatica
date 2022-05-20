@@ -1,0 +1,12 @@
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style_risultato.css') }}">
+    <title>Risultato</title>
+</head>
+<body>
+    <img id = "background_risultato" src = "static/images/gradient_paesaggio.jpeg">
+    <h1 id = "punteggio">Hai risposto correttamente a {{punti}} domande su 10</h1>
+    <h1 id = "battuta">{{text}}</h1>
+    <img id = "immagine" src = "static/images/ranaSwag.png">
+    <a href = "/quiz_difficile"><h2 id = "link">{{text_link}}</h2></a>
+    <a href = "/home"><h2 id = "home">Torna all'HomePage</h2></a>
+</body>

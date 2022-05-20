@@ -65,8 +65,9 @@ def login():
 
 @app.route('/home', methods=['GET'])
 def home():
-    global utente, volte, domanda
+    global utente, volte, domanda, punteggio
 
+    punteggio = 0
     domanda = 0
     volte = 0
     return render_template('home.html', nome = utente)
@@ -178,7 +179,7 @@ def quiz_facile():
 
 @app.route('/quiz_difficile', methods=['GET'])
 def quiz_difficile():
-    global mappa_quiz, risposta, volte, punteggio, corretta, valore_max, regioni, domanda
+    global mappa_quiz, risposta, volte, punteggio, corretta, valore_max, regioni, domanda, utente
     regioni_province = random.randint(0,1)
 
     if volte >=0:
@@ -269,11 +270,11 @@ def quiz_difficile():
     if volte >=11:
         return redirect(url_for("risultato_difficile"))
 
-    return render_template("quiz_difficile.html", opzione1 = opz1, opzione2 = opz2, opzione3 = opz3, opzione4 = opz4, score = punteggio, text = testo, question = domanda)
+    return render_template("quiz_difficile.html", opzione1 = opz1, opzione2 = opz2, opzione3 = opz3, opzione4 = opz4, score = punteggio, text = testo, question = domanda, nome = utente)
     
 @app.route('/quiz_difficile2', methods=['GET'])
 def quiz_difficile2():
-    global mappa_quiz, risposta, volte, punteggio, corretta, valore_max, regioni, domanda
+    global mappa_quiz, risposta, volte, punteggio, corretta, valore_max, regioni, domanda, utente
     regioni_province = random.randint(0,1)
 
     if volte >=0:
@@ -361,13 +362,13 @@ def quiz_difficile2():
     if volte >=11:
         return redirect(url_for("risultato_difficile"))
 
-    return render_template("quiz_difficile.html", opzione1 = opz1, opzione2 = opz2, opzione3 = opz3, opzione4 = opz4, score = punteggio, text = testo, question = domanda)
+    return render_template("quiz_difficile.html", opzione1 = opz1, opzione2 = opz2, opzione3 = opz3, opzione4 = opz4, score = punteggio, text = testo, question = domanda, nome = utente)
 
 @app.route('/regione_png', methods=['GET'])
 def regione_png():
-    fig, ax = plt.subplots(figsize = (12,8))
+    fig, ax = plt.subplots(figsize = (12,8), facecolor = "cyan")
 
-    mappa_quiz.to_crs(epsg=3857).plot(ax=ax, color="c", edgecolor = "k")
+    mappa_quiz.to_crs(epsg=3857).plot(ax=ax, color="deepskyblue", edgecolor = "k")
     contextily.add_basemap(ax=ax)
     output = io.BytesIO()
     FigureCanvas(fig).print_png(output)
@@ -375,7 +376,22 @@ def regione_png():
 
 @app.route('/risultato_facile', methods=['GET'])
 def risultato_facile():
-    return render_template('risultato_facile.html')
+    global utente, volte, domanda, punteggio
+    domanda = 0
+    volte = 0
+
+    if punteggio >= 0 and punteggio <= 4:
+        testo = "La geografia non è proprio il tuo forte, forse dovresti concentrarti su altro"
+        testo_link = "In caso tu voglia riprovare Clicca Qui!"
+        return render_template('risultato_facileMale.html', user = utente, text= testo, text_link = testo_link, punti = int(punteggio))
+    elif punteggio >= 5 and punteggio <= 7:
+        testo = "Sicuramente la geografia non è la tua passione principale, ma sei comunque riuscito a totalizzare un punteggio discreto"
+        testo_link = "Ti consigliamo di riprovare, puoi sicuramente fare di meglio!"
+        return render_template('risultato_facileMedio.html', user = utente, text= testo, text_link = testo_link, punti = int(punteggio))
+    else:
+        testo = "Sei un vero asso per quanto riguarda la geografia dell'Italia"
+        testo_link = "Ti consigliamo di metterti alla prova con la modalità difficile!"
+        return render_template('risultato_facileBene.html', user = utente, text= testo, text_link = testo_link, punti = int(punteggio))
 
 @app.route('/risultato_difficile', methods=['GET'])
 def risultato_difficile():

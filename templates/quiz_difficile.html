@@ -1,21 +1,24 @@
 <head>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style_quiz.css') }}">
+    <title>Quiz</title>
 </head>
 <body>
-
-    <h2>PUNTEGGIO: {{score}}</h2>
-    <h2>{{question}}/10</h2>
-    <p id="output"></p>
-    <h1 id = "sottotitolo">{{text}}</h1>
-    <img src="/regione_png">
-    
-    <form action="/quiz_difficile" method = "GET">
-        <p>
-            <input type = "radio" name = "Scelta" value={{opzione1}} required/>{{opzione1}} <input type = "radio" name = "Scelta" value={{opzione2}} />{{opzione2}} <br>
-            <input type = "radio" name = "Scelta" value={{opzione3}} />{{opzione3}} <input type = "radio" name = "Scelta" value={{opzione4}} />{{opzione4}}
-        </p>
-        <p><input type = "submit" value = "Conferma Scelte" /></p>
-    </form>
+    <img id = "background_quiz" src = "static/images/quiz-time.png">
+    <h1 id = "user">GIOCATORE: {{nome}}</h1>
+    <h2 id = "punti">PUNTEGGIO: {{score}}</h2>
+    <h2 id = "domanda">DOMANDA: {{question}}/10</h2>
+    <h1 id = "indicazione">{{text}}</h1>
+    <h2 id = "output"></h2>
+    <img id = "regione" src="/regione_png">
+    <div id = "opzioni">
+        <form action="/quiz_difficile" method = "GET">
+            <p>
+                <input type = "radio" name = "Scelta" value={{opzione1}} required/>{{opzione1}} <input type = "radio" name = "Scelta" value={{opzione2}} />{{opzione2}} <br>
+                <input type = "radio" name = "Scelta" value={{opzione3}} />{{opzione3}} <input type = "radio" name = "Scelta" value={{opzione4}} />{{opzione4}}
+            </p>
+            <p><input id = "submit" type = "submit" value = "Conferma Scelte" /></p>
+        </form>
+    </div>
 <script>
     var fine = new Date();
     var now = new Date();
@@ -25,7 +28,7 @@
     timer = 20
 
     time = setInterval(function(){
-        document.getElementById("output").innerHTML = timer;
+        document.getElementById("output").innerHTML = "Tempo Rimanente: " + timer;
         timer = timer - 1;
         if (timer == -2) {
             window.alert('Tempo Scaduto!');
