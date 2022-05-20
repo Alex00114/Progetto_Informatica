@@ -25,7 +25,6 @@ volte = 0
 domanda = 0
 punteggio = 0
 
-
 @app.route('/', methods=['GET', 'POST'])
 def registrazione():
     global user
@@ -84,6 +83,9 @@ def difficolta():
 def quiz_facile():
     global mappa_quiz, risposta, volte, punteggio, corretta, valore_max, regioni, domanda, regioni_name, reg_provincia, utente
     regioni_province = random.randint(0,1)
+
+    if volte == 0:
+        punteggio = 0
 
     if volte >=0:
         volte = volte + 1
@@ -182,6 +184,9 @@ def quiz_difficile():
     global mappa_quiz, risposta, volte, punteggio, corretta, valore_max, regioni, domanda, utente
     regioni_province = random.randint(0,1)
 
+    if volte == 0:
+        punteggio = 0
+        
     if volte >=0:
         volte = volte + 1
 
@@ -277,6 +282,9 @@ def quiz_difficile2():
     global mappa_quiz, risposta, volte, punteggio, corretta, valore_max, regioni, domanda, utente
     regioni_province = random.randint(0,1)
 
+    if volte == 0:
+        punteggio = 0
+
     if volte >=0:
         volte = volte + 1
 
@@ -357,8 +365,9 @@ def quiz_difficile2():
             mappa_quiz = province[province["prov_name"] == opz4]
             corretta = opz4
         
-        domanda = domanda + 1
         testo =  "Indovina la Provincia!"
+        
+    domanda = domanda + 1
     if volte >=11:
         return redirect(url_for("risultato_difficile"))
 
@@ -393,9 +402,25 @@ def risultato_facile():
         testo_link = "Ti consigliamo di metterti alla prova con la modalità difficile!"
         return render_template('risultato_facileBene.html', user = utente, text= testo, text_link = testo_link, punti = int(punteggio))
 
+
 @app.route('/risultato_difficile', methods=['GET'])
 def risultato_difficile():
-    return render_template('risultato_difficile.html')
+    global utente, volte, domanda, punteggio
+    domanda = 0
+    volte = 0
+
+    if punteggio >= 0 and punteggio <= 4:
+        testo = "La geografia non è proprio il tuo forte, forse dovresti concentrarti su altro"
+        testo_link = "Ti consigliamo vivamente di provare la modalità facile"
+        return render_template('risultato_difficileMale.html', user = utente, text= testo, text_link = testo_link, punti = int(punteggio))
+    elif punteggio >= 5 and punteggio <= 7:
+        testo = "Sicuramente la geografia non è la tua passione principale, ma sei comunque riuscito a totalizzare un punteggio discreto"
+        testo_link = "Ti consigliamo di riprovare, puoi sicuramente fare di meglio!"
+        return render_template('risultato_difficileMedio.html', user = utente, text= testo, text_link = testo_link, punti = int(punteggio))
+    else:
+        testo = "Sei un vero asso per quanto riguarda la geografia dell'Italia"
+        testo_link = "In caso tu voglia rigiocare Clicca Qui!"
+        return render_template('risultato_difficileBene.html', user = utente, text= testo, text_link = testo_link, punti = int(punteggio))
 
 
 if __name__ == '__main__':
