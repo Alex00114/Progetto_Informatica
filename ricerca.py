@@ -22,14 +22,15 @@ coordinateRegioniMerge = coordinateReg.merge(Regioni, how='inner', left_on='name
 coorditateRegDatiMerge = coordinateRegioniMerge.merge(regioniData, how='inner', left_on='reg_name', right_on='Regione')
 coordinateRegData = coordinateReg.merge(regioniData, how='inner', left_on='name', right_on='Regione')
 coordinateProvinceMerge = coordinateProv.merge(Province, how='inner', left_on='Provincia', right_on='prov_name')
-
 provdata = pd.read_csv('/workspace/Progetto_Informatica/static/csv/prov - Foglio1.csv')
+coorditateProvDatiMerge = coordinateProvinceMerge.merge(provdata, how='inner', left_on='prov_name', right_on='Provinca')
+
 
 @app.route('/', methods=['GET'])
 def mappaF():
   m = folium.Map(location=[41.2925, 12.5736], tiles="openstreetmap",zoom_start=6.3, min_zoom = 5)
   for index, row in coorditateRegDatiMerge.iterrows():
-    iframe = folium.IFrame('Regione:' + str(row.loc['Regione']) + '<br>' + 'popolazione: ' + row.loc['Popolazione'] + '<br>' + 'Superficie km²: ' + str(row.loc['Superficie'])+ '<br>' + 'Densità abitanti/km²: ' + str(row.loc['Densità'])+ '<br>' + 'Numero Comuni: ' + str(row.loc['Numero_Comuni'])+ '<br>' + 'Numero Province: ' + str(row.loc['Numero_Province']))
+    iframe = folium.IFrame('Regione:' + str(row.loc['Regione']) + '<br>' + 'popolazione: ' + row.loc['Popolazione'] + '<br>' + 'Superfice km²: ' + str(row.loc['Superficie'])+ '<br>' + 'Densità abitanti/km²: ' + str(row.loc['Densità'])+ '<br>' + 'Numero Comuni: ' + str(row.loc['Numero_Comuni'])+ '<br>' + 'Numero Province: ' + str(row.loc['Numero_Province']))
     popup = folium.Popup(iframe, min_width=210, max_width=210)
     folium.Marker([row["lat"], row["lon"]], popup=popup).add_to(m)
     
@@ -77,8 +78,10 @@ def png2():
 @app.route('/Province', methods=['GET'])
 def Province1():
   m = folium.Map(location=[41.2925, 12.5736], tiles="openstreetmap",zoom_start=6.3, min_zoom = 5)
-  for index, row in coordinateProvinceMerge.iterrows():
-    folium.Marker([row["lat"], row["lon"]], popup=row['prov_name']).add_to(m)
+  for index, row in coorditateProvDatiMerge.iterrows():
+    iframe = folium.IFrame('Provincia:' + str(row.loc['Provinca']) + '<br>' + 'popolazione: ' + row.loc['Residenti'] + '<br>' + 'Superfice km²: ' + str(row.loc['Superfice'])+ '<br>' + 'numero comuni: ' + str(row.loc['numero comuni'])+ '<br>' + 'Sigla: ' + str(row.loc['Sigla']))
+    popup = folium.Popup(iframe, min_width=120, max_width=120)
+    folium.Marker([row["lat"], row["lon"]], popup=popup).add_to(m)
 
   folium.GeoJson('/workspace/Progetto_Informatica/limits_IT_provinces.geojson', name="geojson").add_to(m)
   folium.LayerControl().add_to(m)
@@ -98,6 +101,7 @@ def ricercaProv():
   if Provincia in prov_lista:
     provincia_richiesta = Province[Province["prov_name"].str.contains(Provincia)]
     provincia_richiesta2 = coordinateProvinceMerge[coordinateProvinceMerge.prov_name.str.contains(Provincia)]
+    provincia_richiesta_Data = provdata[provdata['Provinca'].str.contains(Provincia)]
     print(provincia_richiesta2)
     latitudine = provincia_richiesta2["lat"]
     longitudine = provincia_richiesta2["lon"]
@@ -107,7 +111,7 @@ def ricercaProv():
     folium.LayerControl().add_to(m)
     MousePosition().add_to(m)
     m.save('templates/mappaRichiestaProv.html')
-    return render_template('cercaProv.html')
+    return render_template('cercaProv.html', table = provincia_richiesta_Data.to_html())
   else:
     return '<h1>ERRORE</h1>'
 
