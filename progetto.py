@@ -41,7 +41,7 @@ def registrazione():
     
     if password != c_password:
         return '<script>alert("Le password non corrispondono")</script>'
-
+    else:
         dati_append = dati.append(user,ignore_index=True)
         dati_append.to_csv("/workspace/Progetto_Informatica/static/csv/dati.csv",index=False)
         return render_template('login.html')
