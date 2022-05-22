@@ -15,7 +15,7 @@ from folium.plugins import MousePosition
 
 regioniData= pd.read_csv('/workspace/Progetto_Informatica/static/csv/regioni - Foglio1.csv')
 coordinateReg = pd.read_csv('/workspace/Progetto_Informatica/static/csv/regioniCoord - Foglio1.csv')
-coordinateProv = pd. read_csv('/workspace/Progetto_Informatica/static/csv/coorProv - Foglio1.csv')
+coordinateProv = pd. read_csv('/workspace/Progetto_Informatica/static/csv/coordonteGiusteProv - Foglio1.csv')
 Regioni = geopandas.read_file('/workspace/Progetto_Informatica/limits_IT_regions.geojson')
 Province = geopandas.read_file('/workspace/Progetto_Informatica/limits_IT_provinces.geojson')
 coordinateRegioniMerge = coordinateReg.merge(Regioni, how='inner', left_on='name', right_on='reg_name')
@@ -80,8 +80,8 @@ def Province1():
   m = folium.Map(location=[41.2925, 12.5736], tiles="openstreetmap",zoom_start=6.3, min_zoom = 5)
   for index, row in coorditateProvDatiMerge.iterrows():
     iframe = folium.IFrame('Provincia:' + str(row.loc['Provinca']) + '<br>' + 'popolazione: ' + row.loc['Residenti'] + '<br>' + 'Superfice km²: ' + str(row.loc['Superfice'])+ '<br>' + 'numero comuni: ' + str(row.loc['numero comuni'])+ '<br>' + 'Sigla: ' + str(row.loc['Sigla']))
-    popup = folium.Popup(iframe, min_width=120, max_width=120)
-    folium.Marker([row["lat"], row["lon"]], popup=popup).add_to(m)
+    popup = folium.Popup(iframe, min_width=150, max_width=150)
+    folium.Marker([row["Lat"], row["Lon"]], popup=popup).add_to(m)
 
   folium.GeoJson('/workspace/Progetto_Informatica/limits_IT_provinces.geojson', name="geojson").add_to(m)
   folium.LayerControl().add_to(m)
@@ -103,8 +103,8 @@ def ricercaProv():
     provincia_richiesta2 = coordinateProvinceMerge[coordinateProvinceMerge.prov_name.str.contains(Provincia)]
     provincia_richiesta_Data = provdata[provdata['Provinca'].str.contains(Provincia)]
     print(provincia_richiesta2)
-    latitudine = provincia_richiesta2["lat"]
-    longitudine = provincia_richiesta2["lon"]
+    latitudine = provincia_richiesta2["Lat"]
+    longitudine = provincia_richiesta2["Lon"]
     m = folium.Map(location= [latitudine,longitudine], tiles="openstreetmap",zoom_start=9, min_zoom = 8)
     folium.GeoJson(provincia_richiesta, name="geojson").add_to(m)
 
