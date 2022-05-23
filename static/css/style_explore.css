@@ -1,24 +1,30 @@
-input[type=text] {
-    font-size: 13;
-    position: absolute;
-    top: 2%;
-    left: 37%;
-    width: 20%;
-    height: 5%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    box-sizing: border-box;
-    border: 3px solid #ccc;
-    -webkit-transition: 0.5s;
-    transition: 0.5s;
-    outline: none;
-  }
+#mappa {
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+}
+#txtbox {
+  font-size: 13;
+  position: absolute;
+  top: 2%;
+  left: 37%;
+  width: 20%;
+  height: 5%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 3px solid #ccc;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  outline: none;
+}
   
-  input[type=text]:focus {
-    border: 4px solid #555;
-  }
+#txtbox:focus {
+  border: 4px solid #555;
+}
 
-.imgRic{
+#imgRic{
     position: absolute;
     top: 3.3%;
     left: 57.2%;
@@ -26,19 +32,19 @@ input[type=text] {
     height: 4%;
 }
 #ResetReg{
-    font-size: 14;
-    background-color: rgba(255, 255, 255, 0);
-    border-color: rgba(85, 85, 85, 0);
-    position:absolute;
-    top:94.5%;
-    width: 10%;
-    height:5%;
+  font-size: 14;
+  background-color: rgba(255, 255, 255, 0);
+  border-color: rgba(85, 85, 85, 0);
+  position:absolute;
+  top:94.5%;
+  width: 10%;
+  height:5%;
 }
 #province{
-    position:absolute;
-    top:94.5%;
-    left:10%;
-    width: 10%;
-    height:5%;
+  position:absolute;
+  top:94.5%;
+  left:10%;
+  width: 10%;
+  height:5%;
 }
 

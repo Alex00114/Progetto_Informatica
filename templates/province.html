@@ -1,10 +1,11 @@
 <head>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style_explore.css') }}">
 </head>
+<iframe id="mappa", src="/mappa"></iframe>
 
 <form action="/ricercaProv" method = "GET">
     <input type="text"  placeholder="Cerca Provincia" name="CercaProv" />
-    <input type="image" src="/static/images/search.png" alt = "Submit" width="30" height="30">
+    <input type="image" src="/static/images/search (1).png" alt = "Submit" width="30" height="30">
 </form>
 <button> <a id="regione" href="/">Regione </a></button>
 <button> <a id="province" href="/Province">Province </a></button>
