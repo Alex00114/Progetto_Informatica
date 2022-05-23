@@ -30,15 +30,17 @@
     left: 57.2%;
     width: 3%;
     height: 4%;
+    
 }
 #ResetReg{
   font-size: 14;
   background-color: rgba(255, 255, 255, 0);
   border-color: rgba(85, 85, 85, 0);
   position:absolute;
-  top:94.5%;
+  bottom:5.5%;
   width: 10%;
   height:5%;
+  
 }
 #province{
   position:absolute;
