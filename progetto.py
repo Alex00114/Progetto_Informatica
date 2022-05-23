@@ -10,6 +10,7 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import random
 import pandas as pd 
+import folium
 from folium.plugins import MousePosition
 
 regioni = geopandas.read_file("/workspace/Progetto_Informatica/Reg01012021_g_WGS84.zip")
@@ -434,6 +435,7 @@ def risultato_difficile():
         testo_link = "In caso tu voglia rigiocare Clicca Qui!"
         return render_template('risultato_difficileBene.html', user = utente, text= testo, text_link = testo_link, punti = int(punteggio))
 
+
 @app.route('/explore', methods=['GET'])
 def mappaF():
   m = folium.Map(location=[41.2925, 12.5736], tiles="openstreetmap",zoom_start=6.3, min_zoom = 5)
@@ -445,22 +447,22 @@ def mappaF():
   folium.GeoJson('/workspace/Progetto_Informatica/limits_IT_regions.geojson', name="geojson").add_to(m)
   folium.LayerControl().add_to(m)
   m.save('templates/map.html')
-  return render_template('homeR.html')
+  return render_template('regioni.html')
   
-
 @app.route('/map', methods=['GET'])
 def png():\
-    
     return render_template("map.html")
 
 @app.route('/ricerca', methods=['GET'])
 def ricerca():
   reg_lista = list(Regioni["reg_name"])
+  reg_lista2 = [i.split('-', 1)[0] for i in reg_lista]
+
   Regione = request.args["Cerca"]
   regione_richiesta = Regioni[Regioni["reg_name"].str.contains(Regione)]
   regione_richiesta2 = coorditateRegDatiMerge[coorditateRegDatiMerge.reg_name.str.contains(Regione)]
   regione_richiesta_Data = regioniData[regioniData['Regione'].str.contains(Regione)]
-  if Regione in reg_lista:
+  if Regione in reg_lista2 or Regione in reg_lista:
     latitudine = regione_richiesta2["lat"]
     longitudine = regione_richiesta2["lon"]
     m = folium.Map(location= [latitudine,longitudine], tiles="openstreetmap",zoom_start=9, min_zoom = 8)
@@ -475,13 +477,7 @@ def ricerca():
 
 @app.route('/mappaRichiesta', methods=['GET'])
 def png2():
-    
     return render_template("mappaRichiesta.html")
-
-
-
-
-
 
 @app.route('/province', methods=['GET'])
 def Province1():
@@ -525,7 +521,6 @@ def ricercaProv():
 
 @app.route('/mappaRichiestaProv', methods=['GET'])
 def png4():
-    
     return render_template("mappaRichiestaProv.html")
 
 if __name__ == '__main__':
