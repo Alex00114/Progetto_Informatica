@@ -73,7 +73,9 @@ transform: scale(1.5);
 #Difficolta {
     position: absolute;
     top: 59%;
-    right: 23.6%;
+    width:13%;
+    text-align: center;
+    left: 63.6%;
     height:3%;
     color:rgb(255, 255, 255)
 }
@@ -93,7 +95,7 @@ transform: scale(1.5);
 }
 #desc_quiz2 {
     position: absolute;
-    top: 81%;
+    bottom: 2%;
     right: 18%;
     color:rgb(255, 255, 255);
     width: 24%;

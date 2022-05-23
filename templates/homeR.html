@@ -3,11 +3,13 @@
 </head>
 <iframe id = "mappa", src="/map"></iframe>
 <form action="/ricerca" method = "GET">
-    <input id = "txtbox" type="text" class="ricerca"  placeholder="Cerca Regione" name="Cerca" />
+    <input id = "txtbox" type="text" placeholder="Cerca Regione" name="Cerca" />
     <input id = "imgRic" type="image" src="static/images/search (1).png" alt = "Submit" >
 </form>
 <form action = "/" method = "GET">
-    <p><input id = "ResetReg" type = "submit" value = "Ti sei perso Click Me!"/></p><br>
+    <p><input id = "Reset" type = "submit" value = "Ti sei perso? Click Me!"/></p><br>
 </form>
-<button id="province"> <a href="/Province">Province </a></button>
+<form action = "/Province" method = "GET">
+    <p><input id = "cambio" type = "submit" value = "Province"/></p><br>
+</form>
 

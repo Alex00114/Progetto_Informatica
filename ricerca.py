@@ -80,7 +80,7 @@ def Province1():
   m = folium.Map(location=[41.2925, 12.5736], tiles="openstreetmap",zoom_start=6.3, min_zoom = 5)
   for index, row in coorditateProvDatiMerge.iterrows():
     iframe = folium.IFrame('Provincia:' + str(row.loc['Provinca']) + '<br>' + 'popolazione: ' + row.loc['Residenti'] + '<br>' + 'Superfice km²: ' + str(row.loc['Superfice'])+ '<br>' + 'numero comuni: ' + str(row.loc['numero comuni'])+ '<br>' + 'Sigla: ' + str(row.loc['Sigla']))
-    popup = folium.Popup(iframe, min_width=150, max_width=150)
+    popup = folium.Popup(iframe, min_width=175, max_width=175, min_height=300, max_height=300)
     folium.Marker([row["Lat"], row["Lon"]], popup=popup).add_to(m)
 
   folium.GeoJson('/workspace/Progetto_Informatica/limits_IT_provinces.geojson', name="geojson").add_to(m)
