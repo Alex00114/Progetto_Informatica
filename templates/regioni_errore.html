@@ -1,0 +1,15 @@
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style_explore.css') }}">
+</head>
+<iframe id = "mappa", src="/map"></iframe>
+<form action="/ricerca" method = "GET">
+    <input id = "txtbox" type="text" placeholder="Cerca Regione" name="Cerca" required/>
+    <input id = "imgRic" type="image" src="static/images/search (1).png" alt = "Submit" >
+</form>
+<form action = "/explore" method = "GET">
+    <p><input id = "Reset" type = "submit" value = "Ti sei perso? Click Me!"/></p><br>
+</form>
+<form action = "/province" method = "GET">
+    <p><input id = "cambio" type = "submit" value = "Province"/></p><br>
+</form>
+<script>alert("La regione inserita non esiste")</script>

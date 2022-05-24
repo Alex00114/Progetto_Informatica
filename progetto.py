@@ -53,7 +53,7 @@ def registrazione():
     user = [{"nick": nick, "email": email, "password": password}]
     
     if password != c_password:
-        return '<script>alert("Le password non corrispondono")</script>'
+        return render_template('registrazione_errore.html')
     else:
         dati_append = dati.append(user,ignore_index=True)
         dati_append.to_csv("/workspace/Progetto_Informatica/static/csv/dati.csv",index=False)
@@ -72,8 +72,8 @@ def login():
         for i, d in dati.iterrows():
             if email == d["email"] and password == d["password"] and utente == d["nick"]:  
                 return redirect(url_for("home"))
-
-        return '<script>alert("I dati non sono corretti")</script>'
+                
+        return render_template('login_errore.html', nome = utente)
 
 @app.route('/home', methods=['GET'])
 def home():
@@ -458,7 +458,7 @@ def ricerca():
   reg_lista = list(Regioni["reg_name"])
   reg_lista2 = [i.split('-', 1)[0] for i in reg_lista]
 
-  Regione = request.args["Cerca"]
+  Regione = request.args["Cerca"].title()
   regione_richiesta = Regioni[Regioni["reg_name"].str.contains(Regione)]
   regione_richiesta2 = coorditateRegDatiMerge[coorditateRegDatiMerge.reg_name.str.contains(Regione)]
   regione_richiesta_Data = regioniData[regioniData['Regione'].str.contains(Regione)]
@@ -473,7 +473,7 @@ def ricerca():
     m.save('templates/mappaRichiesta.html')
     return render_template('cerca.html', table = regione_richiesta_Data.to_html())
   else:
-    return '<h1>ERRORE</h1>'
+    return render_template('regioni_errore.html')
 
 @app.route('/mappaRichiesta', methods=['GET'])
 def png2():
@@ -517,7 +517,7 @@ def ricercaProv():
     m.save('templates/mappaRichiestaProv.html')
     return render_template('cercaProv.html', table = provincia_richiesta_Data.to_html())
   else:
-    return '<h1>ERRORE</h1>'
+    return render_template('province_errore.html')
 
 @app.route('/mappaRichiestaProv', methods=['GET'])
 def png4():

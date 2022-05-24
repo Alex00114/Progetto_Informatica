@@ -33,7 +33,7 @@
     transition: transform .2s;
 }
 #ricerca_home:hover {
-transform: scale(1.5); 
+    outline: 8.7px ridge rgb(96, 54, 173);
 }
 #quiz {
     position: absolute;
@@ -41,15 +41,14 @@ transform: scale(1.5);
     right: 15%;
     width: 30%;
     height: 40%;
-    transition: transform .2s;
 }
 #quiz:hover {
-    transform: scale(1.5);
+    outline: 8.7px ridge rgb(201, 201, 201);
 }
 #easy {
     position: absolute;
     top: 65%;
-    left:60%;
+    left:59.3%;
 }
 #easy_img {
     position: absolute;
@@ -61,7 +60,7 @@ transform: scale(1.5);
 #hard {
     position: absolute;
     top: 65%;
-    right: 20%;
+    right: 19.3%;
 }
 #hard_img {
     position: absolute;
