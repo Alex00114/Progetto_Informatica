@@ -1,2 +1,7 @@
-{{table | safe}}
-<iframe class="map", src="/mappaRichiesta" width="100%" height="93%"></iframe>
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style_explore.css') }}">
+</head>
+<body>
+    <p id = "table">{{table | safe}}</p>
+    <iframe id = "mappa", src="/mappaRichiesta"></iframe>
+</body>

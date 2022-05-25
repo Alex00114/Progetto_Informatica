@@ -12,6 +12,7 @@ import random
 import pandas as pd 
 import folium
 from folium.plugins import MousePosition
+import numpy as np
 
 regioni = geopandas.read_file("/workspace/Progetto_Informatica/Reg01012021_g_WGS84.zip")
 regioni_name = list(regioni["DEN_REG"])
@@ -439,7 +440,7 @@ def risultato_difficile():
 @app.route('/explore', methods=['GET'])
 def mappaF():
   m = folium.Map(location=[41.2925, 12.5736], tiles="openstreetmap",zoom_start=6.3, min_zoom = 5)
-  for index, row in coorditateRegDatiMerge.iterrows():
+  for index, row in coorditateRegDatiMerge  .iterrows():
     iframe = folium.IFrame('Regione:' + str(row.loc['Regione']) + '<br>' + 'popolazione: ' + row.loc['Popolazione'] + '<br>' + 'Superfice km²: ' + str(row.loc['Superficie'])+ '<br>' + 'Densità abitanti/km²: ' + str(row.loc['Densità'])+ '<br>' + 'Numero Comuni: ' + str(row.loc['Numero_Comuni'])+ '<br>' + 'Numero province: ' + str(row.loc['Numero_Province']))
     popup = folium.Popup(iframe, min_width=210, max_width=210)
     folium.Marker([row["lat"], row["lon"]], popup=popup).add_to(m)
@@ -462,10 +463,15 @@ def ricerca():
   regione_richiesta = Regioni[Regioni["reg_name"].str.contains(Regione)]
   regione_richiesta2 = coorditateRegDatiMerge[coorditateRegDatiMerge.reg_name.str.contains(Regione)]
   regione_richiesta_Data = regioniData[regioniData['Regione'].str.contains(Regione)]
+  # regione_richiesta_Data = regione_richiesta_Data.transpose()
   if Regione in reg_lista2 or Regione in reg_lista:
     latitudine = regione_richiesta2["lat"]
     longitudine = regione_richiesta2["lon"]
-    m = folium.Map(location= [latitudine,longitudine], tiles="openstreetmap",zoom_start=9, min_zoom = 8)
+    m = folium.Map(location= [latitudine,longitudine], tiles="openstreetmap",zoom_start=8, min_zoom = 7)
+    for index, row in regione_richiesta_Data  .iterrows():
+        iframe = folium.IFrame('Regione:' + str(row.loc['Regione']) + '<br>' + 'popolazione: ' + row.loc['Popolazione'] + '<br>' + 'Superfice km²: ' + str(row.loc['Superficie'])+ '<br>' + 'Densità abitanti/km²: ' + str(row.loc['Densità'])+ '<br>' + 'Numero Comuni: ' + str(row.loc['Numero_Comuni'])+ '<br>' + 'Numero province: ' + str(row.loc['Numero_Province']))
+        popup = folium.Popup(iframe, min_width=210, max_width=210)
+        folium.Marker([latitudine,longitudine], popup=popup).add_to(m)
     folium.GeoJson(regione_richiesta, name="geojson").add_to(m)
 
     folium.LayerControl().add_to(m)
@@ -500,7 +506,7 @@ def png3():\
 def ricercaProv():
   prov_lista = list(province["prov_name"])
   
-  Provincia = request.args["CercaProv"]
+  Provincia = request.args["CercaProv"].title()
   
   if Provincia in prov_lista:
     provincia_richiesta = province[province["prov_name"].str.contains(Provincia)]
