@@ -1,5 +1,6 @@
-#home {
-    background-color: rgb(168, 47, 142);
+#home { 
+    background: rgb(172,43,144);
+    background: linear-gradient(180deg, rgb(150, 29, 180) 27%, rgb(255, 67, 239) 78%);
 }
 #banda {
     position: absolute;
@@ -16,6 +17,7 @@
     top:0.5%;
     left:0.5%;
     color:rgb(255, 255, 255);
+    font-size:xxx-large;
 }
 #logout_png {
     position: absolute;
