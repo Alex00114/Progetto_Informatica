@@ -519,6 +519,10 @@ def ricercaProv():
     latitudine = provincia_richiesta2["Lat"]
     longitudine = provincia_richiesta2["Lon"]
     m = folium.Map(location= [latitudine,longitudine], tiles="openstreetmap",zoom_start=9, min_zoom = 8)
+    for index, row in provincia_richiesta_Data .iterrows():
+        iframe = folium.IFrame('Provincia:' + str(row.loc['Provinca']) + '<br>' + 'popolazione: ' + row.loc['Residenti'] + '<br>' + 'Superfice km²: ' + str(row.loc['Superfice'])+ '<br>' + 'numero comuni: ' + str(row.loc['numero comuni'])+ '<br>' + 'Sigla: ' + str(row.loc['Sigla']))
+        popup = folium.Popup(iframe, min_width=210, max_width=210)
+        folium.Marker([latitudine,longitudine], popup=popup).add_to(m)
     folium.GeoJson(provincia_richiesta, name="geojson").add_to(m)
 
     folium.LayerControl().add_to(m)
