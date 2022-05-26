@@ -14,10 +14,10 @@
 }
 #nome {
     position:absolute;
-    top:0.5%;
+    top:0.4%;
     left:0.5%;
     color:rgb(255, 255, 255);
-    font-size:xxx-large;
+    font-size: 42px;
 }
 #logout_png {
     position: absolute;

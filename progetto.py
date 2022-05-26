@@ -58,7 +58,10 @@ def registrazione():
     else:
         dati_append = dati.append(user,ignore_index=True)
         dati_append.to_csv("/workspace/Progetto_Informatica/static/csv/dati.csv",index=False)
-        return render_template('login.html')
+        if email in dati:
+            return render_template("registrazione_errore2")
+        else:
+            return render_template('login.html')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
