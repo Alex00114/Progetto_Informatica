@@ -52,16 +52,15 @@ def registrazione():
         c_password = request.form.get("Cpassword")
         
     user = [{"nick": nick, "email": email, "password": password}]
-    
+    for i, d in dati.iterrows():
+        if email == d["email"] and password == d["password"] and utente == d["nick"]:  
+            return render_template("registrazione_errore2")
     if password != c_password:
         return render_template('registrazione_errore.html')
     else:
         dati_append = dati.append(user,ignore_index=True)
         dati_append.to_csv("/workspace/Progetto_Informatica/static/csv/dati.csv",index=False)
-        if email in dati:
-            return render_template("registrazione_errore2")
-        else:
-            return render_template('login.html')
+        return render_template('login.html')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():

@@ -1,0 +1,26 @@
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style_login.css') }}">
+    <title>Registrazione</title>
+</head>
+<body>
+<img id = "background_regi" src = "static/images/paesaggioFuturisticoViola.jpg">
+<img id = "cobra" src="static/images/Cobra(3).png" width="15%" height="17%">
+<h1 id = "benvenuto">Benvenuto su GeoCobra</h1>
+<form action="/" method = "POST">
+    <div id = "form_regi">
+        <center>
+        <h2 class = "form_regis">Nickname</h2> <br>
+        <input type = "text" name = "Nick" size="30" required/>
+        <h2 class = "form_regis">Email</h2> <br>
+        <input type = "email" name = "Email" pattern = ".+@gmail\.com" title = "@gmail.com" size = "30" required/>
+        <h2 class = "form_regis">Password</h2> <br>
+        <input type = "password" name = "Password" size="30" required/>
+        <h2 class = "form_regis">Conferma Password</h2> <br>
+        <input type = "password" name = "Cpassword" size="30" required/> <br>
+        <p><input id = "submit" type = "submit" value = "Registrati"/></p>
+        <p class = "form_regis" id = "login_link"><a href="/login">Hai già effettuato la registrzione? Effettua il Login!</a></p>
+        </center>
+    </div>
+</form>
+<script>alert("L'email è già in uso")</script>
+</body>
