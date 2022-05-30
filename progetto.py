@@ -53,8 +53,8 @@ def registrazione():
         
     user = [{"nick": nick, "email": email, "password": password}]
     for i, d in dati.iterrows():
-        if email == d["email"] and password == d["password"] and utente == d["nick"]:  
-            return render_template("registrazione_errore2")
+        if email == d["email"]:  
+            return render_template("registrazione_errore2.html")
     if password != c_password:
         return render_template('registrazione_errore.html')
     else:
@@ -487,7 +487,7 @@ def ricerca():
 def png2():
     return render_template("mappaRichiesta.html")
 
-@app.route('/province', methods=['GET'])
+@app.route('/Province', methods=['GET'])
 def Province1():
   m = folium.Map(location=[41.2925, 12.5736], tiles="openstreetmap",zoom_start=6.3, min_zoom = 5)
   for index, row in coorditateProvDatiMerge.iterrows():
