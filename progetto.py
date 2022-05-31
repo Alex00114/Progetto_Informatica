@@ -20,7 +20,6 @@ regioni_name = list(regioni["DEN_REG"])
 province = geopandas.read_file("/workspace/Progetto_Informatica/limits_IT_provinces.geojson")
 province = province.to_crs(epsg=32632)
 province_name = list(province["prov_name"])
-valore_max = len(province_name)
 
 regioniData= pd.read_csv('/workspace/Progetto_Informatica/static/csv/regioni - Foglio1.csv')
 coordinateReg = pd.read_csv('/workspace/Progetto_Informatica/static/csv/regioniCoord - Foglio1.csv')
@@ -97,8 +96,9 @@ def difficolta():
 
 @app.route('/quiz_facile', methods=['GET'])
 def quiz_facile():
-    global mappa_quiz, risposta, volte, punteggio, corretta, valore_max, regioni, domanda, regioni_name, reg_provincia, utente
+    global mappa_quiz, risposta, volte, punteggio, corretta, valore_max, regioni, domanda, regioni_name, reg_provincia, utente, province_name
     regioni_province = random.randint(0,1)
+    valore_maxReg = len(regioni_name)
 
     if volte == 0:
         punteggio = 0
@@ -113,11 +113,11 @@ def quiz_facile():
 
     if regioni_province == 0:
         testo = "Indovina la Regione!"
-        unico = random.sample(range(0, 20), 4)
-        i = unico[0]
-        j = unico[1]
-        k = unico[2]
-        l = unico[3]
+        unico = random.sample(range(0, valore_maxReg), 4)
+        i = int(unico[0])
+        j = int(unico[1])
+        k = int(unico[2])
+        l = int(unico[3])
 
         opzioni = random.randint(0, 3)
         if opzioni == 0:
@@ -127,6 +127,7 @@ def quiz_facile():
             opz4 = regioni_name[l]
             mappa_quiz = regioni[regioni["DEN_REG"] == opz1]
             corretta = opz1
+            regioni_name.pop(i)
         elif opzioni == 1:
             opz1 = regioni_name[j]
             opz2 = regioni_name[i]
@@ -134,6 +135,7 @@ def quiz_facile():
             opz4 = regioni_name[k]
             mappa_quiz = regioni[regioni["DEN_REG"] == opz2]
             corretta = opz2
+            regioni_name.pop(i)
         elif opzioni == 2:
             opz1 = regioni_name[k]
             opz2 = regioni_name[j]
@@ -141,6 +143,7 @@ def quiz_facile():
             opz4 = regioni_name[l]
             mappa_quiz = regioni[regioni["DEN_REG"] == opz3]
             corretta = opz3
+            regioni_name.pop(i)
         else:
             opz1 = regioni_name[l]
             opz2 = regioni_name[k]
@@ -148,12 +151,14 @@ def quiz_facile():
             opz4 = regioni_name[i]
             mappa_quiz = regioni[regioni["DEN_REG"] == opz4]
             corretta = opz4
+            regioni_name.pop(i)
     else:
+        valore_max = len(province_name)
         unico = random.sample(range(0, valore_max), 4)
-        i = unico[0]
-        j = unico[1]
-        k = unico[2]
-        l = unico[3]
+        i = int(unico[0])
+        j = int(unico[1])
+        k = int(unico[2])
+        l = int(unico[3])
 
         opzioni = random.randint(0, 3)
         if opzioni == 0:
@@ -163,6 +168,7 @@ def quiz_facile():
             opz4 = province_name[l]
             mappa_quiz = province[province["prov_name"] == opz1]
             corretta = opz1
+            province_name.pop(i)
         elif opzioni == 1:
             opz1 = province_name[j]
             opz2 = province_name[i]
@@ -170,6 +176,7 @@ def quiz_facile():
             opz4 = province_name[k]
             mappa_quiz = province[province["prov_name"] == opz2]
             corretta = opz2
+            province_name.pop(i)
         elif opzioni == 2:
             opz1 = province_name[k]
             opz2 = province_name[j]
@@ -177,6 +184,7 @@ def quiz_facile():
             opz4 = province_name[l]
             mappa_quiz = province[province["prov_name"] == opz3]
             corretta = opz3
+            province_name.pop(i)
         else:
             opz1 = province_name[l]
             opz2 = province_name[k]
@@ -184,7 +192,7 @@ def quiz_facile():
             opz4 = province_name[i]
             mappa_quiz = province[province["prov_name"] == opz4]
             corretta = opz4
-        
+            province_name.pop(i)
         
         reg_provincia = mappa_quiz["reg_name"].values[0]        
         testo =  "La provincia appartiene alla regione " + str(reg_provincia)
@@ -197,8 +205,9 @@ def quiz_facile():
 
 @app.route('/quiz_difficile', methods=['GET'])
 def quiz_difficile():
-    global mappa_quiz, risposta, volte, punteggio, corretta, valore_max, regioni, domanda, utente
+    global mappa_quiz, risposta, volte, punteggio, corretta, valore_max, regioni, domanda, utente, regioni_name, province_name
     regioni_province = random.randint(0,1)
+    valore_maxReg = len(regioni_name)
 
     if volte == 0:
         punteggio = 0
@@ -213,7 +222,7 @@ def quiz_difficile():
 
     if regioni_province == 0:
         testo = "Indovina la Regione!"
-        unico = random.sample(range(0, 20), 4)
+        unico = random.sample(range(0, valore_maxReg), 4)
         i = unico[0]
         j = unico[1]
         k = unico[2]
@@ -227,6 +236,7 @@ def quiz_difficile():
             opz4 = regioni_name[l]
             mappa_quiz = regioni[regioni["DEN_REG"] == opz1]
             corretta = opz1
+            regioni_name.pop(i)
         elif opzioni == 1:
             opz1 = regioni_name[j]
             opz2 = regioni_name[i]
@@ -234,6 +244,7 @@ def quiz_difficile():
             opz4 = regioni_name[k]
             mappa_quiz = regioni[regioni["DEN_REG"] == opz2]
             corretta = opz2
+            regioni_name.pop(i)
         elif opzioni == 2:
             opz1 = regioni_name[k]
             opz2 = regioni_name[j]
@@ -241,6 +252,7 @@ def quiz_difficile():
             opz4 = regioni_name[l]
             mappa_quiz = regioni[regioni["DEN_REG"] == opz3]
             corretta = opz3
+            regioni_name.pop(i)
         else:
             opz1 = regioni_name[l]
             opz2 = regioni_name[k]
@@ -248,7 +260,9 @@ def quiz_difficile():
             opz4 = regioni_name[i]
             mappa_quiz = regioni[regioni["DEN_REG"] == opz4]
             corretta = opz4
+            regioni_name.pop(i)
     else:
+        valore_max = len(province_name)
         unico = random.sample(range(0, valore_max), 4)
         i = unico[0]
         j = unico[1]
@@ -263,6 +277,7 @@ def quiz_difficile():
             opz4 = province_name[l]
             mappa_quiz = province[province["prov_name"] == opz1]
             corretta = opz1
+            province_name.pop(i)
         elif opzioni == 1:
             opz1 = province_name[j]
             opz2 = province_name[i]
@@ -270,6 +285,7 @@ def quiz_difficile():
             opz4 = province_name[k]
             mappa_quiz = province[province["prov_name"] == opz2]
             corretta = opz2
+            province_name.pop(i)
         elif opzioni == 2:
             opz1 = province_name[k]
             opz2 = province_name[j]
@@ -277,6 +293,7 @@ def quiz_difficile():
             opz4 = province_name[l]
             mappa_quiz = province[province["prov_name"] == opz3]
             corretta = opz3
+            province_name.pop(i)
         else:
             opz1 = province_name[l]
             opz2 = province_name[k]
@@ -284,7 +301,7 @@ def quiz_difficile():
             opz4 = province_name[i]
             mappa_quiz = province[province["prov_name"] == opz4]
             corretta = opz4
-        
+            province_name.pop(i)
     
         testo =  "Indovina la Provincia!"
     domanda = domanda + 1
@@ -295,8 +312,9 @@ def quiz_difficile():
     
 @app.route('/quiz_difficile2', methods=['GET'])
 def quiz_difficile2():
-    global mappa_quiz, risposta, volte, punteggio, corretta, valore_max, regioni, domanda, utente
+    global mappa_quiz, risposta, volte, punteggio, corretta, valore_max, regioni, domanda, utente, regioni_name, province_name
     regioni_province = random.randint(0,1)
+    valore_maxReg = len(regioni_name)
 
     if volte == 0:
         punteggio = 0
@@ -309,7 +327,7 @@ def quiz_difficile2():
 
     if regioni_province == 0:
         testo = "Indovina la Regione!"
-        unico = random.sample(range(0, 20), 4)
+        unico = random.sample(range(0, valore_maxReg), 4)
         i = unico[0]
         j = unico[1]
         k = unico[2]
@@ -323,6 +341,7 @@ def quiz_difficile2():
             opz4 = regioni_name[l]
             mappa_quiz = regioni[regioni["DEN_REG"] == opz1]
             corretta = opz1
+            regioni_name.pop(i)
         elif opzioni == 1:
             opz1 = regioni_name[j]
             opz2 = regioni_name[i]
@@ -330,6 +349,7 @@ def quiz_difficile2():
             opz4 = regioni_name[k]
             mappa_quiz = regioni[regioni["DEN_REG"] == opz2]
             corretta = opz2
+            regioni_name.pop(i)
         elif opzioni == 2:
             opz1 = regioni_name[k]
             opz2 = regioni_name[j]
@@ -337,6 +357,7 @@ def quiz_difficile2():
             opz4 = regioni_name[l]
             mappa_quiz = regioni[regioni["DEN_REG"] == opz3]
             corretta = opz3
+            regioni_name.pop(i)
         else:
             opz1 = regioni_name[l]
             opz2 = regioni_name[k]
@@ -344,7 +365,9 @@ def quiz_difficile2():
             opz4 = regioni_name[i]
             mappa_quiz = regioni[regioni["DEN_REG"] == opz4]
             corretta = opz4
+            regioni_name.pop(i)
     else:
+        valore_max = len(province_name)
         unico = random.sample(range(0, valore_max), 4)
         i = unico[0]
         j = unico[1]
@@ -359,6 +382,7 @@ def quiz_difficile2():
             opz4 = province_name[l]
             mappa_quiz = province[province["prov_name"] == opz1]
             corretta = opz1
+            province_name.pop(i)
         elif opzioni == 1:
             opz1 = province_name[j]
             opz2 = province_name[i]
@@ -366,6 +390,7 @@ def quiz_difficile2():
             opz4 = province_name[k]
             mappa_quiz = province[province["prov_name"] == opz2]
             corretta = opz2
+            province_name.pop(i)
         elif opzioni == 2:
             opz1 = province_name[k]
             opz2 = province_name[j]
@@ -373,6 +398,7 @@ def quiz_difficile2():
             opz4 = province_name[l]
             mappa_quiz = province[province["prov_name"] == opz3]
             corretta = opz3
+            province_name.pop(i)
         else:
             opz1 = province_name[l]
             opz2 = province_name[k]
@@ -380,7 +406,8 @@ def quiz_difficile2():
             opz4 = province_name[i]
             mappa_quiz = province[province["prov_name"] == opz4]
             corretta = opz4
-        
+            province_name.pop(i)
+
         testo =  "Indovina la Provincia!"
         
     domanda = domanda + 1
