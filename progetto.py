@@ -484,7 +484,7 @@ def risultato_difficile():
         testo_link = "In caso tu voglia rigiocare Clicca Qui!"
         return render_template('risultato_difficileBene.html', user = utente, text= testo, text_link = testo_link, punti = int(punteggio))
 
-#----------------------Quiz(facile)--------------------------#
+#----------------------HomePage Explore(regioni)--------------------------#
 
 @app.route('/explore', methods=['GET'])
 def mappaF():
@@ -498,10 +498,14 @@ def mappaF():
   folium.LayerControl().add_to(m)
   m.save('templates/map.html')
   return render_template('regioni.html')
-  
+
+#----------------------Visualizzazione mappa(regioni)--------------------------#
+
 @app.route('/map', methods=['GET'])
 def png():\
     return render_template("map.html")
+
+#----------------------Ricerca Utente(regioni)--------------------------#
 
 @app.route('/ricerca', methods=['GET'])
 def ricerca():
@@ -530,9 +534,13 @@ def ricerca():
   else:
     return render_template('regioni_errore.html')
 
+#----------------------Plot Mappa Richiesta(regioni)--------------------------#
+
 @app.route('/mappaRichiesta', methods=['GET'])
 def png2():
     return render_template("mappaRichiesta.html")
+
+#----------------------HomePage Explore(province)--------------------------#
 
 @app.route('/Province', methods=['GET'])
 def Province1():
@@ -547,9 +555,13 @@ def Province1():
   m.save('templates/mappa.html')
   return render_template('province.html')
 
+#----------------------Visualizzazione Mappa(province)--------------------------#
+
 @app.route('/mappa', methods=['GET'])
 def png3():\
     return render_template("mappa.html")
+
+#----------------------Ricerca Utente(province)--------------------------#
 
 @app.route('/ricercaProv', methods=['GET'])
 def ricercaProv():
@@ -577,6 +589,8 @@ def ricercaProv():
     return render_template('cercaProv.html', table = provincia_richiesta_Data.to_html())
   else:
     return render_template('province_errore.html')
+
+#----------------------Visualizzazione Mappa Richiesta(province)--------------------------#
 
 @app.route('/mappaRichiestaProv', methods=['GET'])
 def png4():
