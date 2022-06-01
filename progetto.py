@@ -14,6 +14,8 @@ import folium
 from folium.plugins import MousePosition
 import numpy as np
 
+#------------------Creazione geodataframe e dataframe-----------#
+
 regioni = geopandas.read_file("/workspace/Progetto_Informatica/Reg01012021_g_WGS84.zip")
 regioni_name = list(regioni["DEN_REG"])
 
@@ -37,6 +39,8 @@ dati = pd.read_csv("/workspace/Progetto_Informatica/static/csv/dati.csv")
 volte = 0
 domanda = 0
 punteggio = 0
+
+#------------------------------Registrazione e Login----------------------#
 
 @app.route('/', methods=['GET', 'POST'])
 def registrazione():
@@ -77,6 +81,8 @@ def login():
                 
         return render_template('login_errore.html', nome = utente)
 
+#----------------------HomePage--------------------------#
+
 @app.route('/home', methods=['GET'])
 def home():
     global utente, volte, domanda, punteggio
@@ -86,6 +92,8 @@ def home():
     volte = 0
     return render_template('home.html', nome = utente)
 
+#----------------------Selezione Difficoltà--------------------------#
+
 @app.route('/difficolta', methods=['GET'])
 def difficolta():
     diff = request.args["Diff"]
@@ -93,6 +101,8 @@ def difficolta():
         return redirect(url_for("quiz_facile"))
     else:
         return redirect(url_for("quiz_difficile"))
+
+#----------------------Quiz(facile)--------------------------#
 
 @app.route('/quiz_facile', methods=['GET'])
 def quiz_facile():
@@ -203,6 +213,8 @@ def quiz_facile():
 
     return render_template("quiz_facile.html", opzione1 = opz1, opzione2 = opz2, opzione3 = opz3, opzione4 = opz4, score = punteggio, text = testo, question = domanda, nome = utente)
 
+#----------------------Quiz(difficile)--------------------------#
+
 @app.route('/quiz_difficile', methods=['GET'])
 def quiz_difficile():
     global mappa_quiz, risposta, volte, punteggio, corretta, valore_max, regioni, domanda, utente, regioni_name, province_name
@@ -309,7 +321,9 @@ def quiz_difficile():
         return redirect(url_for("risultato_difficile"))
 
     return render_template("quiz_difficile.html", opzione1 = opz1, opzione2 = opz2, opzione3 = opz3, opzione4 = opz4, score = punteggio, text = testo, question = domanda, nome = utente)
-    
+
+#----------------------Quiz(difficile), tempo scaduto--------------------------#
+
 @app.route('/quiz_difficile2', methods=['GET'])
 def quiz_difficile2():
     global mappa_quiz, risposta, volte, punteggio, corretta, valore_max, regioni, domanda, utente, regioni_name, province_name
@@ -416,6 +430,8 @@ def quiz_difficile2():
 
     return render_template("quiz_difficile.html", opzione1 = opz1, opzione2 = opz2, opzione3 = opz3, opzione4 = opz4, score = punteggio, text = testo, question = domanda, nome = utente)
 
+#----------------------Plot(quiz)--------------------------#
+
 @app.route('/regione_png', methods=['GET'])
 def regione_png():
     fig, ax = plt.subplots(figsize = (12,8), facecolor = "cyan")
@@ -425,6 +441,8 @@ def regione_png():
     output = io.BytesIO()
     FigureCanvas(fig).print_png(output)
     return Response(output.getvalue(), mimetype='image/png')
+
+#----------------------Risultato(facile)--------------------------#
 
 @app.route('/risultato_facile', methods=['GET'])
 def risultato_facile():
@@ -445,6 +463,7 @@ def risultato_facile():
         testo_link = "Ti consigliamo di metterti alla prova con la modalità difficile!"
         return render_template('risultato_facileBene.html', user = utente, text= testo, text_link = testo_link, punti = int(punteggio))
 
+#----------------------Risultato(difficile)--------------------------#
 
 @app.route('/risultato_difficile', methods=['GET'])
 def risultato_difficile():
@@ -465,6 +484,7 @@ def risultato_difficile():
         testo_link = "In caso tu voglia rigiocare Clicca Qui!"
         return render_template('risultato_difficileBene.html', user = utente, text= testo, text_link = testo_link, punti = int(punteggio))
 
+#----------------------Quiz(facile)--------------------------#
 
 @app.route('/explore', methods=['GET'])
 def mappaF():
